@@ -1,0 +1,23 @@
+[version]
+0.51.0
+
+[libs]
+./interfaces/
+
+[ignore]
+.*/node_modules\/[^\/]*\/node_modules/*
+.*/node_modules/react-grid-layout/build/*
+.*/node_modules/react-resizable/build/*
+
+[include]
+./node_modules/react
+./node_modules/immutable
+
+[options]
+emoji=true
+module.name_mapper='^.*\(\.scss\)$' -> 'CSSModule'
+module.system=haste
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+module.name_mapper='^app\/\(.*\)$' -> '<PROJECT_ROOT>/source/app/\1'
+module.name_mapper='^styles\/\(.*\)$' -> '<PROJECT_ROOT>/source/styles/\1'
