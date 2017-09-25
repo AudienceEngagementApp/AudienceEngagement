@@ -9,16 +9,13 @@ const webpack = require('webpack')
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'react-hot-loader/patch',
     'babel-polyfill',
-    'webpack-hot-middleware/client?reload=false&timeout=2000&path=/hot',
-    'webpack/hot/dev-server',
     path.resolve(__dirname, 'source/app/index.js')
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app.js',
-    publicPath: '/',
+    publicPath: 'https://s3.amazonaws.com/scott-dev-bucket/'
   },
   resolve: {
     modules: [path.resolve(__dirname), "node_modules"],
@@ -72,15 +69,17 @@ module.exports = {
   },
   plugins: [
     new ExtractTextWebpackPlugin('app.css'),
+    new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new HtmlWebpackPlugin({
       template: './index.html',
       filename: 'index.html',
       inject: 'true'
-    }),
-    new FlowStatusWebpackPlugin({
-      restartFlow: true
     })
   ]
 }

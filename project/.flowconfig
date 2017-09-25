@@ -21,3 +21,4 @@ esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
 module.name_mapper='^app\/\(.*\)$' -> '<PROJECT_ROOT>/source/app/\1'
 module.name_mapper='^styles\/\(.*\)$' -> '<PROJECT_ROOT>/source/styles/\1'
+module.name_mapper='^assets\/\(.*\)$' -> '<PROJECT_ROOT>/source/assets/\1'
