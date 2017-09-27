@@ -10,8 +10,8 @@ import styles from 'styles/base.scss'
 //const store = createStore()
 const http = new Http()
 
-export class AppContainer extends React.Component {
-  render = (): React.Element<*> => (
+export class AppContainer extends React$Component<*>{
+  render = (): React$Element<*> => (
     <div>
       <Router history={hashHistory}>
         <App http={http} />

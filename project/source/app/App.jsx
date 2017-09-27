@@ -9,14 +9,14 @@ type Props = {
   http: Http
 }
 
-export class App extends React.Component {
+export class App extends React$Component<Props>{
   props: Props
 
   constructor(props: Props) {
     super(props)
   }
 
-  render = (): React.Element<*> => (
+  render = (): React$Element<*> => (
     <div>
       <SubComponent />
       <Route exact path='/' component={() =>

@@ -7,7 +7,7 @@ function finish {
 trap 'finish' SIGTERM
 
 cd /app
-npm run dev &
+npm install && npm run dev &
 pid=$!
 
 wait

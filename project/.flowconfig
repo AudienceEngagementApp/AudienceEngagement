@@ -1,5 +1,5 @@
 [version]
-0.51.0
+0.55.0
 
 [libs]
 ./interfaces/
@@ -8,6 +8,7 @@
 .*/node_modules\/[^\/]*\/node_modules/*
 .*/node_modules/react-grid-layout/build/*
 .*/node_modules/react-resizable/build/*
+.*/node_modules/immutable/dist/*
 
 [include]
 ./node_modules/react

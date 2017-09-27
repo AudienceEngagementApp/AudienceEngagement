@@ -52,6 +52,9 @@ module.exports = {
               options: {
                 plugins: () => [
                   'postcss-import',
+                  'autoprefixer': { add: false, browsers: [] },
+                  'postcss-next',
+                  'cssnano'
                 ]
               }
             }
