@@ -3,12 +3,12 @@
 import React from 'react'
 import {Http} from 'app/http/Http'
 
-export class SubComponent extends React.Component<*>{
+
+export class StudentHome extends React.Component<*>{
+
   render = (): React$Element<*> => (
     <div>
-      <h3>
-        Hello World
-      </h3>
+      <h1> Hello i am the student view </h1>
     </div>
   )
 }

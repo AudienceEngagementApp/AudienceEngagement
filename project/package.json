@@ -12,10 +12,10 @@
     "immutable": "3.8.1",
     "moment": "^2.15.2",
     "node-uuid": "^1.4.7",
+    "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-grid-system": "^2.9.6",
     "react-router-dom": "^4.2.2",
-    "react": "^16.0.0",
     "underscore": "1.8.3"
   },
   "devDependencies": {
