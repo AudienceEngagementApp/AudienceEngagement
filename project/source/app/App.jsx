@@ -4,12 +4,13 @@ import React from 'react'
 import {Http} from 'app/http/Http'
 import {Link, Switch, Route, IndexRoute} from 'react-router-dom'
 import {SubComponent} from 'app/SubComponent'
+import {StudentHome} from 'app/student/StudentHome'
 
 type Props = {
   http: Http
 }
 
-export class App extends React$Component<Props>{
+export class App extends React.Component<Props>{
   props: Props
 
   constructor(props: Props) {
@@ -18,9 +19,14 @@ export class App extends React$Component<Props>{
 
   render = (): React$Element<*> => (
     <div>
-      <SubComponent />
       <Route exact path='/' component={() =>
-        <Link to='/route' > Toggle Route </Link>
+        <div>
+          <SubComponent />
+          <Link to='/route' > Toggle Route </Link>
+        </div>
+      } />
+      <Route exact path='/student' component={() =>
+        <StudentHome />
       } />
       <Route path='/route' component={() => (
         <div>
