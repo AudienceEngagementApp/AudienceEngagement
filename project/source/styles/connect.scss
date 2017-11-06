@@ -1,5 +1,4 @@
-$app-blue: #2895FF;
-$text-dark-gray: #4A4A4A;
+@import 'colors';
 
 h1, h2, h3, h4, h5, h6, p, div, span {
   font-family: Montserrat;
@@ -9,26 +8,6 @@ h1, h2, h3, h4, h5, h6, p, div, span {
   &:hover {
     cursor: pointer;
   }
-}
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.banner-blue {
-  border-radius: 4px;
-  padding: 20px;
-  box-shadow: 0 5px 16px 0 rgba(0,0,0,0.18);
-
-  background-color: $app-blue;
-  color: #FFFFFF;
-
-  font-size: 72px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-align: center;
 }
 
 .content {
