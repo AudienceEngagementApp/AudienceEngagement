@@ -9,7 +9,7 @@ export class Connect extends React.Component<*>{
     render = (): React$Element<*> => (
       <div className="container">
         <div className="banner-blue">
-          Go to InvolveMe.com and enter Session PIN: 432 AZr
+          <b>Go to InvolveMe.com</b> and enter Session <b>PIN: 432 AZr</b>
         </div>
         <div className="content">
           <span className="total-joined">
