@@ -5,6 +5,8 @@ import {Http} from 'app/http/Http'
 import {Link, Switch, Route, IndexRoute} from 'react-router-dom'
 import {SubComponent} from 'app/SubComponent'
 import {StudentHome} from 'app/student/StudentHome'
+import {Connect} from 'app/student/Connect'
+
 
 type Props = {
   http: Http
@@ -27,6 +29,9 @@ export class App extends React.Component<Props>{
       } />
       <Route exact path='/student' component={() =>
         <StudentHome />
+      } />
+      <Route exact path='/connect' component={() =>
+        <Connect />
       } />
       <Route path='/route' component={() => (
         <div>

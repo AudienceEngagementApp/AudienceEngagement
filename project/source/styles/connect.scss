@@ -1,0 +1,93 @@
+@import 'colors';
+
+h1, h2, h3, h4, h5, h6, p, div, span {
+  font-family: Montserrat;
+}
+
+.btn {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.join-session-btn {
+  box-sizing: border-box;
+  height: 97px;
+  width: 415px;
+  border: 2px solid #FFBC42;
+  border-radius: 12px;
+  background-color: #FFBC42;
+  box-shadow: 0 5px 16px 0 rgba(0,0,0,0.18);
+
+  color: #FFFFFF;
+  font-family: "SF UI Text";
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.total-joined {
+  color: $text-dark-gray;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 44px;
+  margin-bottom: 10px;
+}
+
+.image-row {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+
+  width: 100%;
+  margin-bottom: -60px;
+
+  img {
+    object-fit: contain;
+    height: auto;
+    max-height: 300px;
+    flex-grow: 1;
+  }
+  .outter {
+    width: 193px;
+  }
+  .inner {
+    width: 242px;
+    padding-bottom: 20px;
+  }
+}
+
+.curved-bottom {
+  height: 226px;
+  width: 100%;
+  background-color: $app-blue;
+  border-top-left-radius: 100%80px;
+  border-top-right-radius: 100%80px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.bottom-content {
+  color: #FFFFFF;
+  font-size: 48px;
+  letter-spacing: 1px;
+}
+
+@media screen and (max-width: 800px) {
+  .image-row {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+}
