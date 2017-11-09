@@ -1,0 +1,93 @@
+.top-border {
+	background-color: #2895FF;
+	color: white;
+	height: 30%;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right:0px;
+	text-align: center;
+  border-radius: 0 0 99% 99% / 15%;
+	padding-top: 5vh;
+}
+
+.exit {
+	position: absolute;
+	top: 8%;
+	right: 4%;
+	color: white;
+	background-color: #2895FF;
+	border: 1px solid #2895FF;
+}
+
+.question-textarea {
+	width: 84%;
+  height: 22%;
+	border-radius: 5px;
+  border: solid 1.2px #2895FF;
+	display: flex;
+	left: 8%;
+	position: absolute;
+	top: 17%;
+	font-size: 2.1vw;
+	padding: 2%;
+}
+
+.answer-choices {
+	position: absolute;
+	top: 42%;
+	left: 5%;
+}
+
+.row-answers {
+	display: flex;
+	height: 21vh;
+	width: 90vw;
+}
+
+.bottom-border {
+	background-color: #2895FF;
+	color: white;
+	height: 13%;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right:0px;
+	font-size: 2vw;
+	display: flex;
+}
+
+.correct-answer {
+	display: flex;
+	margin-bottom: 1.5%;
+	margin-top: 1.5%;
+	margin-left: 6%;
+	font-size: 2.15vw;
+	align-items: center;
+}
+
+.correct-answer-box {
+	width: 30%;
+	font-size: 3.1vh;
+	border-radius: 5px;
+	border: 1px solid #2895FF;
+	text-align: center;
+	margin-left: 3%;
+	color: black;
+	height: 95%
+}
+
+.save-btn {
+	box-sizing: border-box;
+	border: 1px solid #2895FF;
+	border-radius: 100px;
+	background-color: #FFFFFF;
+	margin: 1.6%;
+	width: 20%;
+	color: #B3B3B3;
+	margin-left: 34%;
+	margin-right: 6%;
+	font-size: 1.2vw;
+}
