@@ -46,29 +46,37 @@
 	color: white;
 	font-size: 9vh;
 	padding: 2%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	label {
+		margin-top: auto;
+		margin-bottom: auto;
+	}
 }
+
 .answer-A {
 	border-color: #FFBC42;
 }
-.A {
+.label-A {
 	background-color: #FFBC42;
 }
 .answer-B {
 	border-color: #FF5964;
 }
-.B {
+.label-B {
 	background-color: #FF5964;
 }
 .answer-C {
 	border-color: #7DDF64;
 }
-.C {
+.label-C {
 	background-color: #7DDF64;
 }
 .answer-D {
 	border-color: #FFE74C;
 }
-.D {
+.label-D {
 	background-color: #FFE74C;
 }
 
@@ -87,6 +95,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+	font-size: 36px;
+	color: rgba(0,0,0,0.72);
+	font-family: "SF UI Text";
 }
 
 .submit-answer-btn {

@@ -9,16 +9,19 @@
 	right:0px;
 	text-align: center;
   border-radius: 0 0 99% 99% / 15%;
-	padding-top: 5vh;
+  h3 {
+    font-size: 48px;
+  }
 }
 
 .exit {
 	position: absolute;
-	top: 8%;
+	top: 48px;
 	right: 4%;
 	color: white;
 	background-color: #2895FF;
 	border: 1px solid #2895FF;
+  font-size: 48px;
 }
 
 .question-textarea {
