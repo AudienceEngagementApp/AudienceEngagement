@@ -6,6 +6,7 @@ import {Link, Switch, Route, IndexRoute} from 'react-router-dom'
 import {StudentHome} from 'app/student/StudentHome'
 import {Lesson} from 'app/teacher/lesson/Lesson'
 import {Connect} from 'app/student/Connect'
+import {NewMcQuestion} from 'app/teacher/question/NewMcQuestion'
 
 type Props = {
   http: Http
@@ -34,6 +35,16 @@ export class App extends React.Component<Props>{
       } />
       <Route exact path='/connect' component={() =>
         <Connect />
+      } />
+      <Route exact path='/test' component={() =>
+        <NewMcQuestion
+          question="This is a question"
+          answerA="This is the first answer"
+          answerB="This is the second answer"
+          answerC="This is the third answer"
+          answerD="This is the fourth answer"
+          correctAnswer="A"
+        />
       } />
       <Route path='/route' component={() => (
         <div>
