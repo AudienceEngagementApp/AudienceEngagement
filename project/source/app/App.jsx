@@ -31,6 +31,7 @@ export class App extends React.Component<Props>{
       } />
       <Route exact path='/teacher/lesson' component={() =>
         <Lesson />
+      } />
       <Route exact path='/connect' component={() =>
         <Connect />
       } />
