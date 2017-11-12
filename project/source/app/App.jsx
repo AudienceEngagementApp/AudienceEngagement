@@ -6,28 +6,31 @@ import {StudentIndex} from 'app/student/StudentIndex'
 import {TeacherIndex} from 'app/teacher/TeacherIndex'
 import {BigBanner} from 'app/common/BigBanner'
 import {Provider} from 'react-redux'
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, applyMiddleware, compose, type Store, type Dispatch, type Reducer} from 'redux'
 import rootReducer from 'app/reducers'
-import type {Store, Dispatch} from 'redux'
-import thunk from 'redux-thunk'
+import {reactReduxFirebase} from 'react-redux-firebase'
+import {Test} from 'app/Test'
 
 import styles from 'styles/app.scss'
 
-type Props = {
+const firebaseConfig = {
+  apiKey: "AIzaSyAvwf5OFx69GJ7e0ecUr0nhX0e6_jS44Zw",
+  authDomain: "engagedaudience.firebaseapp.com",
+  databaseURL: "https://engagedaudience.firebaseio.com",
+  projectId: "engagedaudience",
+  storageBucket: "engagedaudience.appspot.com",
+  messagingSenderId: "154470817038"
 }
 
-const store: Store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-)
+const reduxFirebaseConfig = { userProfile: 'users' }
 
-export class App extends React.Component<Props>{
-  props: Props
+const createStoreWithFirebase: (Reducer, Object) => Store = compose(
+  reactReduxFirebase(firebaseConfig, reduxFirebaseConfig),
+)(createStore)
 
-  constructor(props: Props) {
-    super(props)
-  }
+const store: Store = createStoreWithFirebase(rootReducer, {})
 
+export class App extends React.Component<*>{
   render = (): React$Element<*> => (
     <Provider store={store}>
       <Switch>
@@ -53,6 +56,9 @@ export class App extends React.Component<Props>{
         } />
         <Route path='/student' component={() =>
           <StudentIndex />
+        } />
+        <Route path='/test' component={() =>
+          <Test />
         } />
       </Switch>
     </Provider>

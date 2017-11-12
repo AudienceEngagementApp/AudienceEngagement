@@ -6,7 +6,7 @@ import {Link, Route, Switch, Redirect} from 'react-router-dom'
 import React from 'react'
 import {type StoreState} from 'app/state/index'
 import {setName} from 'app/actions/LoginInfoAction'
-import {type Dispatch} from 'redux'
+import {compose, type Dispatch} from 'redux'
 import {connect, type Connector} from 'react-redux'
 
 type OwnProps = {
@@ -36,8 +36,8 @@ class StudentIndex extends React.Component<Props>{
 
 const mapStateToProps = (state: StoreState, ownProps: OwnProps): StateProps => {
   return {
-  name: state.loginInfo.name,
-  ...ownProps,
+    name: state.loginInfo.name,
+    ...ownProps,
   }
 }
 
@@ -47,8 +47,8 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchPro
   },
 })
 
-const connector: Connector<OwnProps, Props> = connect(mapStateToProps, mapDispatchToProps);
+const componentWithCompose = compose(
+  connect(mapStateToProps, mapDispatchToProps)
+)(StudentIndex)
 
-const componentWithState = connector(StudentIndex)
-
-export { componentWithState as StudentIndex }
+export { componentWithCompose as StudentIndex }
