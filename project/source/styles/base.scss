@@ -1,5 +1,4 @@
 @import 'colors';
-@import 'components';
 
 html, body {
   padding: 0;
@@ -7,19 +6,22 @@ html, body {
   min-height: 100%;
   height: 100%;
   color: $black;
-  font-family: 'Montserrat', Times, serif;
-}
+  h1, h2, h3, h4, h5, h6, p, div, span {
+    font-family: Montserrat;
+  }
 
-.banner-blue {
-  border-radius: 4px;
-  padding: 20px;
-  box-shadow: 0 5px 16px 0 rgba(0,0,0,0.18);
 
-  background-color: $primary-light-blue;
-  color: #FFFFFF;
 
-  font-size: 72px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-align: center;
+  .btn {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 }

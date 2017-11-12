@@ -1,3 +1,0 @@
-// @flow
-
-// Reducer goes here.

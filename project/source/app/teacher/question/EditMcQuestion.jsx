@@ -5,18 +5,18 @@ import React, {Component, PropTypes} from 'react'
 //import {createMCQuestion} from 'app/actions/index'
 import {AnswerBox} from 'app/teacher/question/AnswerBox'
 
-import styles from 'styles/new_mc_question.scss'
+import styles from 'styles/teacher/question/new-mc-question.scss'
 
 type Props = {
-  question: string,
-  answerA: string,
-  answerB: string,
-  answerC: string,
-  answerD: string,
-  correctAnswer: string,
+  question?: string,
+  answerA?: string,
+  answerB?: string,
+  answerC?: string,
+  answerD?: string,
+  correctAnswer?: string,
 }
 
-export class NewMcQuestion extends Component<Props> {
+export class EditMcQuestion extends Component<Props> {
 
   onSubmit(props: Object) {
     /*this.props.createMCQuestion(props).then(() => {
@@ -102,5 +102,5 @@ export default reduxForm({
   form: 'MCNewForm',
   fields: ['question', 'a', 'b', 'c', 'd', 'correctAnswer'],
   validate
-}, null, { createMCQuestion })(NewMcQuestion)
+}, null, { createMCQuestion })(EditMcQuestion)
 */

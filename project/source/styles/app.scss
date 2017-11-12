@@ -1,0 +1,27 @@
+.app-index {
+
+  .root-button {
+      box-sizing: border-box;
+      height: 97px;
+      width: 415px;
+      border: 2px solid #FFBC42;
+      border-radius: 12px;
+      background-color: #FFBC42;
+      box-shadow: 0 5px 16px 0 rgba(0,0,0,0.18);
+
+      color: #FFFFFF;
+      font-family: "SF UI Text";
+      font-size: 36px;
+      font-weight: bold;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    align-items: center;
+    margin-bottom: 30%;
+  }
+
+}

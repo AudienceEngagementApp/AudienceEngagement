@@ -1,57 +1,66 @@
 // @flow
 
 import React from 'react'
-import {Http} from 'app/http/Http'
-import {Link, Switch, Route, IndexRoute} from 'react-router-dom'
-import {StudentHome} from 'app/student/StudentHome'
-import {Lesson} from 'app/teacher/lesson/Lesson'
-import {Connect} from 'app/student/Connect'
-import {NewMcQuestion} from 'app/teacher/question/NewMcQuestion'
+import {Link, Route, Switch} from 'react-router-dom'
+import {StudentIndex} from 'app/student/StudentIndex'
+import {TeacherIndex} from 'app/teacher/TeacherIndex'
+import {BigBanner} from 'app/common/BigBanner'
+import {Provider} from 'react-redux'
+import {createStore, applyMiddleware, compose, type Store, type Dispatch, type Reducer} from 'redux'
+import rootReducer from 'app/reducers'
+import {reactReduxFirebase} from 'react-redux-firebase'
+import {Test} from 'app/Test'
 
-type Props = {
-  http: Http
+import styles from 'styles/app.scss'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAvwf5OFx69GJ7e0ecUr0nhX0e6_jS44Zw",
+  authDomain: "engagedaudience.firebaseapp.com",
+  databaseURL: "https://engagedaudience.firebaseio.com",
+  projectId: "engagedaudience",
+  storageBucket: "engagedaudience.appspot.com",
+  messagingSenderId: "154470817038"
 }
 
-export class App extends React.Component<Props>{
-  props: Props
+const reduxFirebaseConfig = { userProfile: 'users' }
 
-  constructor(props: Props) {
-    super(props)
-  }
+const createStoreWithFirebase: (Reducer, Object) => Store = compose(
+  reactReduxFirebase(firebaseConfig, reduxFirebaseConfig),
+)(createStore)
 
-  // I put teacher/lesson in there without a teacher index for demo.
+const store: Store = createStoreWithFirebase(rootReducer, {})
+
+export class App extends React.Component<*>{
   render = (): React$Element<*> => (
-    <div>
-      <Route exact path='/' component={() =>
-        <div>
-          <Link to='/route' > Toggle Route </Link>
-        </div>
-      } />
-      <Route exact path='/student' component={() =>
-        <StudentHome />
-      } />
-      <Route exact path='/teacher/lesson' component={() =>
-        <Lesson />
-      } />
-      <Route exact path='/connect' component={() =>
-        <Connect />
-      } />
-      <Route exact path='/test' component={() =>
-        <NewMcQuestion
-          question="This is a question"
-          answerA="This is the first answer"
-          answerB="This is the second answer"
-          answerC="This is the third answer"
-          answerD="This is the fourth answer"
-          correctAnswer="A"
-        />
-      } />
-      <Route path='/route' component={() => (
-        <div>
-          <Link to='/'> Toggle Route </Link>
-          <p>You found a route</p>
-        </div>
-      )} />
-    </div>
+    <Provider store={store}>
+      <Switch>
+        <Route exact path='/' component={() =>
+          <div className='app-index'>
+            <div className='container'>
+              <BigBanner>
+                InvolveMe
+              </BigBanner>
+              <div className='content'>
+                <Link to='/teacher'>
+                  <button className="root-button btn">I'm a teacher</button>
+                </Link>
+                <Link to='/student'>
+                  <button className="root-button btn">I'm a student</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        } />
+        <Route path='/teacher' component={() =>
+          <TeacherIndex />
+        } />
+        <Route path='/student' component={() =>
+          <StudentIndex />
+        } />
+        <Route path='/test' component={() =>
+          <Test />
+        } />
+      </Switch>
+    </Provider>
   )
 }
