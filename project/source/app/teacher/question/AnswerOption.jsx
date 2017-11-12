@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react'
 
-import styles from 'styles/teacher_answer.scss'
+import styles from 'styles/teacher/question/teacher-answer.scss'
 
 type Props = {
   letter: string,

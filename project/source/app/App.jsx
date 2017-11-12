@@ -1,16 +1,25 @@
 // @flow
 
 import React from 'react'
-import {Http} from 'app/http/Http'
-import {Link, Switch, Route, IndexRoute} from 'react-router-dom'
-import {StudentHome} from 'app/student/StudentHome'
-import {Lesson} from 'app/teacher/lesson/Lesson'
-import {Connect} from 'app/student/Connect'
-import {NewMcQuestion} from 'app/teacher/question/NewMcQuestion'
+import {Link, Route, Switch} from 'react-router-dom'
+import {StudentIndex} from 'app/student/StudentIndex'
+import {TeacherIndex} from 'app/teacher/TeacherIndex'
+import {BigBanner} from 'app/common/BigBanner'
+import {Provider} from 'react-redux'
+import {createStore, applyMiddleware} from 'redux'
+import rootReducer from 'app/reducers'
+import type {Store, Dispatch} from 'redux'
+import thunk from 'redux-thunk'
+
+import styles from 'styles/app.scss'
 
 type Props = {
-  http: Http
 }
+
+const store: Store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+)
 
 export class App extends React.Component<Props>{
   props: Props
@@ -19,39 +28,33 @@ export class App extends React.Component<Props>{
     super(props)
   }
 
-  // I put teacher/lesson in there without a teacher index for demo.
   render = (): React$Element<*> => (
-    <div>
-      <Route exact path='/' component={() =>
-        <div>
-          <Link to='/route' > Toggle Route </Link>
-        </div>
-      } />
-      <Route exact path='/student' component={() =>
-        <StudentHome />
-      } />
-      <Route exact path='/teacher/lesson' component={() =>
-        <Lesson />
-      } />
-      <Route exact path='/connect' component={() =>
-        <Connect />
-      } />
-      <Route exact path='/test' component={() =>
-        <NewMcQuestion
-          question="This is a question"
-          answerA="This is the first answer"
-          answerB="This is the second answer"
-          answerC="This is the third answer"
-          answerD="This is the fourth answer"
-          correctAnswer="A"
-        />
-      } />
-      <Route path='/route' component={() => (
-        <div>
-          <Link to='/'> Toggle Route </Link>
-          <p>You found a route</p>
-        </div>
-      )} />
-    </div>
+    <Provider store={store}>
+      <Switch>
+        <Route exact path='/' component={() =>
+          <div className='app-index'>
+            <div className='container'>
+              <BigBanner>
+                InvolveMe
+              </BigBanner>
+              <div className='content'>
+                <Link to='/teacher'>
+                  <button className="root-button btn">I'm a teacher</button>
+                </Link>
+                <Link to='/student'>
+                  <button className="root-button btn">I'm a student</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        } />
+        <Route path='/teacher' component={() =>
+          <TeacherIndex />
+        } />
+        <Route path='/student' component={() =>
+          <StudentIndex />
+        } />
+      </Switch>
+    </Provider>
   )
 }

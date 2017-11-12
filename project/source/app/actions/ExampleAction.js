@@ -1,3 +1,0 @@
-// @flow
-
-// Action goes here.
