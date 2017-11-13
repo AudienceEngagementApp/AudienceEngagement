@@ -4,9 +4,7 @@ import React from 'react'
 import {TextInput} from 'app/common/TextInput'
 import uuidv4 from 'node-uuid'
 import {Link, Route, Switch, withRouter, type History} from 'react-router-dom'
-import {connect} from 'react-redux'
 import {compose} from 'redux'
-import {firebaseConnect, isLoaded, isEmpty, toJS, dataToJS} from 'react-redux-firebase'
 
 type State = {
   name: string,
@@ -15,14 +13,13 @@ type State = {
 }
 
 type OwnProps = {
-  history: *,
+  pins: Object,
+  setLoginInfo: (name: string, sessionId: string) => void,
 }
 type StateProps = {
-  name: string,
-  pins: Object
+  history: *,
 }
 type DispatchProps = {
-  setName: (name: string) => void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps
@@ -62,12 +59,13 @@ class JoinSession extends React.Component<Props, State> {
     const session: Object = this.props.pins[this.state.session]
     if (session && session.session && this.state.name) {
       const sessionId: string = session.session
-      this.props.setName(this.state.name)
+      this.props.setLoginInfo(this.state.name, sessionId)
       this.props.history.push(`/student/session/${sessionId}`)
     }
   }
 
   onNextPressed = () => {
+    console.log('pins:',this.props.pins)
     const session: Object = this.props.pins[this.state.session]
     if (session && session.session) {
       this.setState({page: this.state.page + 1})
@@ -83,14 +81,8 @@ class JoinSession extends React.Component<Props, State> {
   }
 }
 
-const componentWithCompose = compose(
-  firebaseConnect(['/pins']),
-  connect(
-    ({firebase}) => ({
-      pins: dataToJS(firebase, 'pins')
-    })
-  ),
+const composedComponent = compose(
   withRouter
 )(JoinSession)
 
-export { componentWithCompose as JoinSession }
+export { composedComponent as JoinSession }

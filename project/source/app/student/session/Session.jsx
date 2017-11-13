@@ -10,14 +10,9 @@ import {firebaseConnect, isLoaded, isEmpty, toJS, dataToJS} from 'react-redux-fi
 
 type OwnProps = {
   name: string,
-  match: {
-    params: {
-      sessionId: number
-    }
-  }
+  session?: Object,
 }
 type StateProps = {
-  sessions: Object
 }
 type DispatchProps = {
 }
@@ -44,11 +39,10 @@ const dBStateToSessionState = (dbState: number): SessionState => {
   }
 }
 
-class Session extends React.Component<Props>{
+export class Session extends React.Component<Props>{
 
   render = (): React$Element<*> => {
-    console.log(this.props)
-    const state = this.props && this.props.sessions && this.props.match && this.props.match.params ? dBStateToSessionState(this.props.sessions[this.props.match.params['sessionId']].state) : -1
+    const state = this.props.session ? this.props.session.state : -1
     switch(state) {
       case SessionStates.activeQuestion:
         return <Question />
@@ -67,18 +61,3 @@ class Session extends React.Component<Props>{
     }
   }
 }
-
-const componentWithCompose = compose(
-  withRouter,
-  firebaseConnect((props: OwnProps) => {
-    console.log(`connecting to sessions/${props.match.params['sessionId']}`)
-    return [`sessions/${props.match.params['sessionId']}`,]
-  }),
-  connect(({firebase}) => {
-    return {
-      sessions: dataToJS(firebase, 'sessions')
-    }
-  })
-)(Session)
-
-export { componentWithCompose as Session }

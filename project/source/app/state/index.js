@@ -1,5 +1,6 @@
 import {State as LoginInfoState} from 'app/state/LoginInfoState'
 
 export type StoreState = {
-  loginInfo: LoginInfoState
+  loginInfo: LoginInfoState,
+  firebase: Object,
 }
