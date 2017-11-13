@@ -3,19 +3,24 @@
 import {JoinSession} from 'app/student/join/JoinSession'
 import {Session} from 'app/student/session/Session'
 import {Link, Route, Switch, Redirect} from 'react-router-dom'
+import {firebaseConnect, isLoaded, isEmpty, toJS, dataToJS} from 'react-redux-firebase'
 import React from 'react'
 import {type StoreState} from 'app/state/index'
-import {setName} from 'app/actions/LoginInfoAction'
+import {setLoginInfo} from 'app/actions/LoginInfoAction'
 import {compose, type Dispatch} from 'redux'
 import {connect, type Connector} from 'react-redux'
+import {SessionLoader} from 'app/common/SessionLoader'
 
 type OwnProps = {
+  match: Object
 }
 type StateProps = {
   name: string,
+  sessionId: string,
+  pins: Object,
 }
 type DispatchProps = {
-  setName: (name: string) => void,
+  setLoginInfo: (name: string, sessionId: string) => void,
 }
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -25,7 +30,11 @@ class StudentIndex extends React.Component<Props>{
     return (<div>
       <Switch>
         <Route path='/student/session/:sessionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={() =>
-          this.props.name ? <Session {...this.props}/> : <Redirect to='/student' /> } />
+          this.props.name && this.props.sessionId ? (
+            <SessionLoader sessionId={this.props.sessionId}><Session {...this.props}/></SessionLoader>
+          ) : (
+            <Redirect to='/student' />
+          )} />
         <Route path='/student' component={() => (
           <JoinSession {...this.props}/>
         )} />
@@ -34,21 +43,28 @@ class StudentIndex extends React.Component<Props>{
   }
 }
 
-const mapStateToProps = (state: StoreState, ownProps: OwnProps): StateProps => {
-  return {
-    name: state.loginInfo.name,
+const mapStateToProps = (storeState: StoreState, ownProps: OwnProps): StateProps => {
+  const rawData: Object = dataToJS(storeState.firebase, 'pins')
+  return Object.assign ({},
+    rawData ? {pins: rawData} : {pins: {}},
+    { name: storeState.loginInfo.name,
+    sessionId: storeState.loginInfo.sessionId,
     ...ownProps,
-  }
+  })
 }
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => ({
-  setName: (name: string) => {
-    dispatch(setName(name));
+  setLoginInfo: (name: string, sessionId: string) => {
+    dispatch(setLoginInfo(name, sessionId));
   },
 })
 
-const componentWithCompose = compose(
-  connect(mapStateToProps, mapDispatchToProps)
+const composedComponent = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firebaseConnect((ownProps: OwnProps): Array<string> => {
+    console.log('Connecting to /pins')
+    return ['/pins']
+  })
 )(StudentIndex)
 
-export { componentWithCompose as StudentIndex }
+export { composedComponent as StudentIndex }
