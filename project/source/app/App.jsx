@@ -55,7 +55,7 @@ export class App extends React.Component<*>{
           <TeacherIndex />
         } />
         <Route path='/student' component={() =>
-          <StudentIndex />
+          <StudentIndex/>
         } />
         <Route path='/test' component={() =>
           <Test />

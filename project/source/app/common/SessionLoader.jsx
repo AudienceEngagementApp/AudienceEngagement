@@ -36,13 +36,18 @@ class SessionLoader extends React.Component<Props>{
 }
 
 const mapStateToProps = (storeState: StoreState, ownProps: OwnProps): StateProps & OwnProps => {
+  console.log('Mapping states to props')
+  console.log(dataToJS(storeState.firebase,'data'))
+  console.log(dataToJS(storeState.firebase,'sessions'))
+  console.log(dataToJS(storeState.firebase,'pins'))
   const path: string = 'sessions' + (ownProps.sessionId ? '/' + ownProps.sessionId : '')
   const rawData: Object = dataToJS(storeState.firebase, path)
   if (rawData) {
-    console.log('Found session: ', rawData)
     if (ownProps.sessionId) {
+      console.log('Found session: ', rawData)
       return Object.assign({}, {session: rawData}, ownProps)
     } else {
+      console.log('Found list of sessions: ', rawData)
       return Object.assign({}, {sessions: _.keys(rawData)}, ownProps)
     }
   } else {
@@ -79,10 +84,11 @@ const composedComponent = compose(
   connect(mapStateToProps, mapDispatchToProps),
   firebaseConnect((ownProps: OwnProps): Array<string> => {
     if (ownProps.sessionId) {
-      console.log('connecting to sessions' + (ownProps.sessionId ? '/' + ownProps.sessionId : ''))
-      return ['sessions' + (ownProps.sessionId ? '/' + ownProps.sessionId : '')]
+      console.log(`Connecting to /sessions/${String(ownProps.sessionId)}`)
+      return [`/sessions/${String(ownProps.sessionId)}`]
     } else {
-      return []
+      console.log('Connecting to /sessions')
+      return ['/sessions']
     }
   }),
 )(SessionLoader)

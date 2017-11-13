@@ -42,8 +42,8 @@ const dBStateToSessionState = (dbState: number): SessionState => {
 export class Session extends React.Component<Props>{
 
   render = (): React$Element<*> => {
-    const state = this.props.session ? this.props.session.state : -1
-    switch(state) {
+    const state = (this.props.session && this.props.session.state) ? this.props.session.state : -1
+    switch(dBStateToSessionState(state)) {
       case SessionStates.activeQuestion:
         return <Question />
       case SessionStates.waitingForPlayers:

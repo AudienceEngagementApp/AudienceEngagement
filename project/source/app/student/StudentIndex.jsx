@@ -59,9 +59,12 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchPro
   },
 })
 
-const componentWithCompose = compose(
-  firebaseConnect(['/pins']),
-  connect(mapStateToProps, mapDispatchToProps)
+const composedComponent = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firebaseConnect((ownProps: OwnProps): Array<string> => {
+    console.log('Connecting to /pins')
+    return ['/pins']
+  })
 )(StudentIndex)
 
-export { componentWithCompose as StudentIndex }
+export { composedComponent as StudentIndex }
