@@ -1,3 +1,6 @@
+// @flow
+
 export type State = {
-  name: ?string
+  name: ?string,
+  sessionId: ?string
 }
