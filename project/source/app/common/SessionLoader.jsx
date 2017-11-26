@@ -3,7 +3,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose, type Dispatch} from 'redux'
-import {firebaseConnect, isLoaded, isEmpty, toJS, dataToJS, actionTypes} from 'react-redux-firebase'
+import {firebaseConnect, isLoaded, isEmpty, toJS, actionTypes} from 'react-redux-firebase'
 import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import {uuidv4} from 'node-uuid'
@@ -36,22 +36,18 @@ class SessionLoader extends React.Component<Props>{
 }
 
 const mapStateToProps = (storeState: StoreState, ownProps: OwnProps): StateProps & OwnProps => {
-  console.log('Mapping states to props')
-  console.log(dataToJS(storeState.firebase,'data'))
-  console.log(dataToJS(storeState.firebase,'sessions'))
-  console.log(dataToJS(storeState.firebase,'pins'))
-  const path: string = 'sessions' + (ownProps.sessionId ? '/' + ownProps.sessionId : '')
-  const rawData: Object = dataToJS(storeState.firebase, path)
-  if (rawData) {
+  if (storeState.firebase.data.sessions) {
     if (ownProps.sessionId) {
-      console.log('Found session: ', rawData)
+      console.log('Session found')
+      const rawData: Object = storeState.firebase.data.sessions[ownProps.sessionId]
       return Object.assign({}, {session: rawData}, ownProps)
     } else {
-      console.log('Found list of sessions: ', rawData)
+      console.log('Sessions found')
+      const rawData: Object = storeState.firebase.data.sessions
       return Object.assign({}, {sessions: _.keys(rawData)}, ownProps)
     }
   } else {
-    console.log('Session not found: ', rawData)
+    console.log('Session(s) not loaded')
     return Object.assign({}, ownProps)
   }
 }

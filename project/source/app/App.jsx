@@ -6,33 +6,18 @@ import {StudentIndex} from 'app/student/StudentIndex'
 import {TeacherIndex} from 'app/teacher/TeacherIndex'
 import {BigBanner} from 'app/common/BigBanner'
 import {Provider} from 'react-redux'
-import {createStore, applyMiddleware, compose, type Store, type Dispatch, type Reducer} from 'redux'
-import rootReducer from 'app/reducers'
-import {reactReduxFirebase} from 'react-redux-firebase'
 import {Test} from 'app/Test'
+import {type Store} from 'redux'
 
 import styles from 'styles/app.scss'
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAvwf5OFx69GJ7e0ecUr0nhX0e6_jS44Zw",
-  authDomain: "engagedaudience.firebaseapp.com",
-  databaseURL: "https://engagedaudience.firebaseio.com",
-  projectId: "engagedaudience",
-  storageBucket: "engagedaudience.appspot.com",
-  messagingSenderId: "154470817038"
+type Props = {
+  store: Store
 }
 
-const reduxFirebaseConfig = { userProfile: 'users' }
-
-const createStoreWithFirebase: (Reducer, Object) => Store = compose(
-  reactReduxFirebase(firebaseConfig, reduxFirebaseConfig),
-)(createStore)
-
-const store: Store = createStoreWithFirebase(rootReducer, {})
-
-export class App extends React.Component<*>{
+export class App extends React.Component<Props>{
   render = (): React$Element<*> => (
-    <Provider store={store}>
+    <Provider store={this.props.store}>
       <Switch>
         <Route exact path='/' component={() =>
           <div className='app-index'>

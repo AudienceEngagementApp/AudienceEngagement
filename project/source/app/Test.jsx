@@ -3,7 +3,18 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
-import {firebaseConnect, isLoaded, isEmpty, toJS, dataToJS} from 'react-redux-firebase'
+import {firebaseConnect, isLoaded, isEmpty} from 'react-redux-firebase'
+import {type StoreState} from 'app/state/index'
+
+type OwnProps = {
+}
+type StateProps = {
+  tests: {
+    pins: Object,
+    sessions: Object,
+    lessons: Object
+  }
+}
 
 class Test extends Component<*> {
   handleAdd = () => {
@@ -13,6 +24,7 @@ class Test extends Component<*> {
 
   render () {
     const {tests} = this.props
+    console.log(tests)
     const testObject = (!isLoaded(tests)) ? 'Loading' : (isEmpty(tests)) ? 'object is empty' : JSON.stringify(tests)
     return (
       <div >
@@ -28,17 +40,19 @@ class Test extends Component<*> {
   }
 }
 
+const mapStateToProps = (storeState: StoreState, ownProps: OwnProps): StateProps & OwnProps => {
+  return {
+    tests: Object.assign({},
+      {pins: storeState.firebase.data.pins},
+      {sessions: storeState.firebase.data.sessions},
+      {lessons: storeState.firebase.data.lessons}
+    )
+  }
+}
+
 const componentWithCompose = compose(
-  firebaseConnect(['/']),
-  connect(
-    ({ firebase }) => ({
-      tests: Object.assign({},
-        {pins: dataToJS(firebase, 'pins')},
-        {sessions: dataToJS(firebase, 'sessions')},
-        {lessons: dataToJS(firebase, 'lessons')}
-      )
-    })
-  )
+  firebaseConnect(['/pins']),
+  connect(mapStateToProps)
 )(Test)
 
 

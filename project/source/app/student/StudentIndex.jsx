@@ -3,7 +3,7 @@
 import {JoinSession} from 'app/student/join/JoinSession'
 import {Session} from 'app/student/session/Session'
 import {Link, Route, Switch, Redirect} from 'react-router-dom'
-import {firebaseConnect, isLoaded, isEmpty, toJS, dataToJS} from 'react-redux-firebase'
+import {firebaseConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 import React from 'react'
 import {type StoreState} from 'app/state/index'
 import {setLoginInfo} from 'app/actions/LoginInfoAction'
@@ -44,7 +44,7 @@ class StudentIndex extends React.Component<Props>{
 }
 
 const mapStateToProps = (storeState: StoreState, ownProps: OwnProps): StateProps => {
-  const rawData: Object = dataToJS(storeState.firebase, 'pins')
+  const rawData: Object = storeState.firebase.data.pins
   return Object.assign ({},
     rawData ? {pins: rawData} : {pins: {}},
     { name: storeState.loginInfo.name,

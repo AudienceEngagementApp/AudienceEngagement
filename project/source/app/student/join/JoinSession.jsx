@@ -65,7 +65,6 @@ class JoinSession extends React.Component<Props, State> {
   }
 
   onNextPressed = () => {
-    console.log('pins:',this.props.pins)
     const session: Object = this.props.pins[this.state.session]
     if (session && session.session) {
       this.setState({page: this.state.page + 1})

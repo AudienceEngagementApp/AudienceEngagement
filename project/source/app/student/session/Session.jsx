@@ -6,7 +6,7 @@ import {Question} from 'app/student/session/question/Question'
 import {Waiting} from 'app/student/session/waiting/Waiting'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
-import {firebaseConnect, isLoaded, isEmpty, toJS, dataToJS} from 'react-redux-firebase'
+import {firebaseConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 
 type OwnProps = {
   name: string,
@@ -42,6 +42,7 @@ const dBStateToSessionState = (dbState: number): SessionState => {
 export class Session extends React.Component<Props>{
 
   render = (): React$Element<*> => {
+    //console.log(this.props.session)
     const state = (this.props.session && this.props.session.state) ? this.props.session.state : -1
     switch(dBStateToSessionState(state)) {
       case SessionStates.activeQuestion:
