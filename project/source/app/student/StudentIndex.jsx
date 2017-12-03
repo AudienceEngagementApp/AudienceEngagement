@@ -9,7 +9,7 @@ import {type StoreState} from 'app/state/index'
 import {setLoginInfo} from 'app/actions/LoginInfoAction'
 import {compose, type Dispatch} from 'redux'
 import {connect, type Connector} from 'react-redux'
-import {SessionLoader} from 'app/common/SessionLoader'
+//import {SessionConnect} from 'app/common/SessionConnect'
 
 type OwnProps = {
   match: Object
@@ -31,7 +31,7 @@ class StudentIndex extends React.Component<Props>{
       <Switch>
         <Route path='/student/session/:sessionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={() =>
           this.props.name && this.props.sessionId ? (
-            <SessionLoader sessionId={this.props.sessionId}><Session {...this.props}/></SessionLoader>
+            <Session {...this.props}/>
           ) : (
             <Redirect to='/student' />
           )} />

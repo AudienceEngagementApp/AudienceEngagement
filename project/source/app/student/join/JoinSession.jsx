@@ -41,6 +41,7 @@ class JoinSession extends React.Component<Props, State> {
           placeholder='Session Pin'
           value={this.state.session}
           textChanged={this.sessionChanged}
+          onEnter={this.onNextPressed}
         />
         <button onClick={this.onNextPressed}>join</button>
       </div>) : (<div>
@@ -49,6 +50,7 @@ class JoinSession extends React.Component<Props, State> {
           placeholder='Enter Name'
           value={this.state.name}
           textChanged={this.nameChanged}
+          onEnter={this.onSubmitPressed}
         />
         <button onClick={this.onSubmitPressed}>submit</button>
       </div>)}
