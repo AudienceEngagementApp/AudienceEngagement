@@ -6,7 +6,7 @@ import {compose, type Dispatch} from 'redux'
 import {firebaseConnect, isLoaded, isEmpty, toJS, actionTypes} from 'react-redux-firebase'
 import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
-import {uuidv4} from 'node-uuid'
+import uuidv4 from 'uuid/v4'
 
 type OwnProps = {
   children: React$Node,

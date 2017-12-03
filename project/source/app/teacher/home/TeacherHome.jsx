@@ -1,19 +1,39 @@
 // @flow
 
 import React from 'react'
-import {Link, Route, Switch} from 'react-router-dom'
-import uuidv4 from 'node-uuid'
+import {Route, Link} from 'react-router-dom'
+import {allLessonConnect} from 'app/common/connectors/AllLessonConnect'
+import {compose} from 'redux'
+import _ from 'underscore'
+import {NewLessonModal} from 'app/teacher/home/NewLessonModal'
 
-export class TeacherHome extends React.Component<*>{
+type OwnProps = {
+  lessons: Object,
+  addLesson: (name: string) => string
+}
 
-  render = (): React$Element<*> => (
-    <div>
+type Props = OwnProps
+
+class TeacherHome extends React.Component<Props>{
+
+  render = (): React$Element<*> => {
+    const lessonElements = _.keys(this.props.lessons).map((lessonId: string) => (<li key={lessonId}>
+      {this.props.lessons[lessonId].name} <Link to={`/teacher/lesson/${lessonId}`}><button>Edit</button></Link>
+    </li>))
+    return (<div>
       <Link to='/teacher/live'><button>Go Live</button></Link>
-      <Link to={`/teacher/lesson/${this.createNewLesson()}`}><button>New lesson</button></Link>
-    </div>
-  )
-
-  createNewLesson = (): string => {
-    return uuidv4()
+      <h3>Current Lessons</h3>
+      <ul>{lessonElements}</ul>
+      <Link to={`/teacher/newlesson`}><button>New lesson</button></Link>
+      <Route path='/teacher/newlesson' component={() => (<div>
+        <NewLessonModal {...this.props}/>
+      </div>)} />
+    </div>)
   }
 }
+
+const composedComponent = compose(
+  allLessonConnect
+)(TeacherHome)
+
+export { composedComponent as TeacherHome }

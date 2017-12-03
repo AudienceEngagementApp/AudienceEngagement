@@ -7,13 +7,15 @@ import PlusCircle from 'react-icons/lib/fa/plus-circle'
 import ArrowLeft from 'react-icons/lib/fa/arrow-left'
 import {LessonQuestion} from 'app/teacher/lesson/LessonQuestion'
 import classnames from 'classnames'
+import {lessonConnect} from 'app/common/connectors/LessonConnect'
+import {compose} from 'redux'
 
 import styles from 'styles/teacher/lesson/lesson.scss'
 
-export class Lesson extends React.Component<*>{
+class Lesson extends React.Component<*>{
 
-  render = (): React$Element<*> => (
-    <div className={classnames('lesson')}>
+  render = (): React$Element<*> => {
+    return (<div className={classnames('lesson')}>
       <div className={classnames('top-bar')}>
         <h1>Start Live Session <PlayCircle /></h1>
         <h1><FaEllipsisV /></h1>
@@ -23,6 +25,12 @@ export class Lesson extends React.Component<*>{
         <h2>1 Question <PlusCircle /></h2>
       </div>
       <LessonQuestion />
-    </div>
-  )
+    </div>)
+  }
 }
+
+const composedComponent = compose(
+  lessonConnect
+)(Lesson)
+
+export { composedComponent as Lesson }

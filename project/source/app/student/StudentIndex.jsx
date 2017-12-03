@@ -9,7 +9,7 @@ import {type StoreState} from 'app/state/index'
 import {setLoginInfo} from 'app/actions/LoginInfoAction'
 import {compose, type Dispatch} from 'redux'
 import {connect, type Connector} from 'react-redux'
-//import {SessionConnect} from 'app/common/SessionConnect'
+//import {SessionConnect} from 'app/common/connectors/SessionConnect'
 
 type OwnProps = {
   match: Object

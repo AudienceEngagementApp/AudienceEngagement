@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {TextInput} from 'app/common/TextInput'
-import uuidv4 from 'node-uuid'
+import uuidv4 from 'uuid/v4'
 import {Link, Route, Switch, withRouter, type History} from 'react-router-dom'
 import {compose} from 'redux'
 
@@ -31,31 +31,28 @@ class JoinSession extends React.Component<Props, State> {
     this.state = {name: '', session: '', page: 1, debouncedClick: true};
   }
 
-  render = (): React$Element<*> => {
-
-  return (<div>
-      <h1>InvolveMe</h1>
-      {(this.state.page == 1) ? (<div>
-        <TextInput
-          type="text"
-          placeholder='Session Pin'
-          value={this.state.session}
-          textChanged={this.sessionChanged}
-          onEnter={this.onNextPressed}
-        />
-        <button onClick={this.onNextPressed}>join</button>
-      </div>) : (<div>
-        <TextInput
-          type="text"
-          placeholder='Enter Name'
-          value={this.state.name}
-          textChanged={this.nameChanged}
-          onEnter={this.onSubmitPressed}
-        />
-        <button onClick={this.onSubmitPressed}>submit</button>
-      </div>)}
-    </div>)
-  }
+  render = (): React$Element<*> => (<div>
+    <h1>InvolveMe</h1>
+    {(this.state.page == 1) ? (<div>
+      <TextInput
+        type="text"
+        placeholder='Session Pin'
+        value={this.state.session}
+        textChanged={this.sessionChanged}
+        onEnter={this.onNextPressed}
+      />
+      <button onClick={this.onNextPressed}>join</button>
+    </div>) : (<div>
+      <TextInput
+        type="text"
+        placeholder='Enter Name'
+        value={this.state.name}
+        textChanged={this.nameChanged}
+        onEnter={this.onSubmitPressed}
+      />
+      <button onClick={this.onSubmitPressed}>submit</button>
+    </div>)}
+  </div>)
 
   onSubmitPressed = () => {
     const session: Object = this.props.pins[this.state.session]

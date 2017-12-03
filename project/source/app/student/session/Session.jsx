@@ -10,7 +10,7 @@ import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {firebaseConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 import {Loading} from 'app/common/Loading'
-import {sessionConnect} from 'app/common/SessionConnect'
+import {sessionConnect} from 'app/common/connectors/SessionConnect'
 import {Error} from 'app/common/Error'
 
 type Props = {

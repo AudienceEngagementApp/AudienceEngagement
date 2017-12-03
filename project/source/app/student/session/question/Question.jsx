@@ -5,7 +5,7 @@ import {Link, Route, Switch} from 'react-router-dom'
 import {BoolQuestion} from 'app/student/session/question/BoolQuestion'
 import {MCQuestion} from 'app/student/session/question/MCQuestion'
 import {FRQuestion} from 'app/student/session/question/FRQuestion'
-import {lessonConnect} from 'app/common/LessonConnect'
+import {lessonConnect} from 'app/common/connectors/LessonConnect'
 import {compose} from 'redux'
 
 type Props = {
