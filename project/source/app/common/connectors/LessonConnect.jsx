@@ -8,6 +8,7 @@ import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import {Loading} from 'app/common/Loading'
 import uuidv4 from 'uuid/v4'
+import {getAddQuestionCommand, getAddQuestionAnswerCommand} from 'app/actions/LessonAction'
 
 type OwnProps = {
   lessonId: string,
@@ -34,17 +35,8 @@ export const lessonConnect = <A>(Component: React.Component<A & StateProps & Dis
     }
   }
   const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => ({
-    addQuestion: (question: string, type: number): void => {
-      const questionId = uuidv4()
-      if (type == 0) {
-        ownProps.firebase.push(`lessons/${ownProps.lessonId}`, {question: question, type: type, answers: {}})
-      } else {
-        ownProps.firebase.push(`lessons/${ownProps.lessonId}`, {question: question, type: type})
-      }
-    },
-    addQuestionAnswer: (questionId: string, answerLetter: string, answerChoice: string): void => {
-      ownProps.firebase.push(`lessons/${ownProps.lessonId}/${answerLetter}`, answerChoice)
-    }
+    addQuestion: getAddQuestionCommand(dispatch, ownProps),
+    addQuestionAnswer: getAddQuestionAnswerCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
     connect(mapStateToProps, mapDispatchToProps),

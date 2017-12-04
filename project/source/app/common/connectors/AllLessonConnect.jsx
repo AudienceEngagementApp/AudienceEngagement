@@ -7,6 +7,7 @@ import {firebaseConnect, isLoaded, isEmpty, toJS, actionTypes} from 'react-redux
 import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import uuidv4 from 'uuid/v4'
+import {getAddLessonCommand} from 'app/actions/LessonAction'
 
 type OwnProps = {
   firebase: Object
@@ -31,12 +32,7 @@ export const allLessonConnect = <A>(Component: React.Component<A & StateProps & 
     }
   }
   const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => ({
-    addLesson: (name: string): string => {
-      console.log(uuidv4())
-      const lessonId = uuidv4()
-      ownProps.firebase.set(`lessons/${lessonId}`, {name: name, questions: {}})
-      return lessonId
-    }
+    addLesson: getAddLessonCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
     firebaseConnect((ownProps: OwnProps): Array<string> => {
