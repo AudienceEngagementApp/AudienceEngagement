@@ -17,7 +17,7 @@ type StateProps = {
   sessions?: Array<string>
 }
 type DispatchProps = {
-  addSession: (lessonId: string) => void,
+  addSession: (lessonId: ?string) => string,
 }
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -36,11 +36,11 @@ export const allSessionConnect = <A>(Component: React.Component<A & StateProps &
     addSession: getAddSessionCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
-    connect(mapStateToProps, mapDispatchToProps),
     firebaseConnect((ownProps: OwnProps): Array<string> => {
       console.log('Connecting to /sessions')
       return ['/sessions']
     }),
+    connect(mapStateToProps, mapDispatchToProps),
   )(Component)
   return composedComponent
 }

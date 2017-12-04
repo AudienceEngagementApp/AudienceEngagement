@@ -29,7 +29,7 @@
     "sessions": {
       "$session": {
         // Must be UUID and have all children specified.
-        ".validate": "newData.hasChildren(['lesson','state'])
+        ".validate": "newData.hasChildren(['state'])
         	&& $session.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
         "lesson": {
           // Ref. validate lesson exists

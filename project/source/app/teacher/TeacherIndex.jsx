@@ -5,7 +5,7 @@ import {Link, Route, Switch} from 'react-router-dom'
 import {Lesson} from 'app/teacher/lesson/Lesson'
 import {TeacherHome} from 'app/teacher/home/TeacherHome'
 import {EditMcQuestion} from 'app/teacher/question/EditMcQuestion'
-import {Connect} from 'app/teacher/connect/Connect'
+import {Live} from 'app/teacher/live/Live'
 import {compose, type Dispatch} from 'redux'
 
 export class TeacherIndex extends React.Component<*>{
@@ -19,10 +19,10 @@ export class TeacherIndex extends React.Component<*>{
         LessonFromURL
       } />
       <Route path='/teacher/live' component={() => (
-        <Connect />
+        <Live {...this.props}/>
       )} />
       <Route path='/teacher' component={() => (
-        <TeacherHome />
+        <TeacherHome  {...this.props}/>
       )} />
     </Switch>
   </div>)

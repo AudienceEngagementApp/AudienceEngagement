@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import {Link, Route, Switch} from 'react-router-dom'
+import {Link, Route, Switch, Redirect} from 'react-router-dom'
 import {StudentIndex} from 'app/student/StudentIndex'
 import {TeacherIndex} from 'app/teacher/TeacherIndex'
 import {BigBanner} from 'app/common/BigBanner'
@@ -11,9 +11,11 @@ import {Loading} from 'app/common/Loading'
 
 import styles from 'styles/app.scss'
 
+const display_seperate_home_page = false
+
 export const App = (): React$Element<*> => (
   <Switch>
-    <Route exact path='/' component={() =>
+    <Route exact path='/' component={() => display_seperate_home_page ? (
       <div className='app-index'>
         <div className='container'>
           <BigBanner>
@@ -29,6 +31,9 @@ export const App = (): React$Element<*> => (
           </div>
         </div>
       </div>
+    ) : (
+      <Redirect to='/student' />
+    )
     } />
     <Route path='/teacher' component={TeacherIndex} />
     <Route path='/student' component={StudentIndex} />

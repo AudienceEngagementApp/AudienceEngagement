@@ -39,11 +39,11 @@ export const sessionConnect = <A>(Component: React.Component<A & StateProps & Di
     answerQuestion: getAnswerQuestionCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
-    connect(mapStateToProps, mapDispatchToProps),
     firebaseConnect((ownProps: OwnProps): Array<string> => {
       console.log(`Connecting to /sessions/${String(ownProps.sessionId)}`)
       return [`/sessions/${String(ownProps.sessionId)}`]
     }),
+    connect(mapStateToProps, mapDispatchToProps),
   )(Component)
   return composedComponent
 }
