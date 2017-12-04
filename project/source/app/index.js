@@ -1,7 +1,7 @@
 // @flow
+
 import {App} from 'app/App'
 import {AppContainer} from 'app/AppContainer'
-import {createStore} from 'redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {configureStore} from 'app/state/ConfigureStore'
@@ -9,15 +9,15 @@ import {configureStore} from 'app/state/ConfigureStore'
 const store = configureStore()
 
 ReactDOM.render(
-  <AppContainer store={store} />,
+  <AppContainer app={App} store={store} />,
   document.getElementById('root')
 )
 
 if (module.hot) {
-  module.hot.accept('app/AppContainer.jsx', () => {
-    const NextAppContainer = require('app/AppContainer.jsx').default
+  module.hot.accept('app/App.jsx', () => {
+    const NextApp = require('app/App.jsx').default
     ReactDOM.render(
-      <NextAppContainer store={store} />,
+      <AppContainer app={NextApp} store={store}/>,
       document.getElementById('root')
     )
   })

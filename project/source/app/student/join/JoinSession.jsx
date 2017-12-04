@@ -3,18 +3,20 @@
 import React from 'react'
 import {TextInput} from 'app/common/TextInput'
 import uuidv4 from 'uuid/v4'
-import {Link, Route, Switch, withRouter, type History} from 'react-router-dom'
+import {Link, Route, Switch, type History} from 'react-router-dom'
 import {compose} from 'redux'
 
 type State = {
   name: string,
-  session: string,
+  sessionPin: string,
   page: number
 }
 
 type OwnProps = {
   pins: Object,
   setLoginInfo: (name: string, sessionId: string) => void,
+  sessionId?: string,
+  onSubmit?: (sessionId: string, name: string) => void
 }
 type StateProps = {
   history: *,
@@ -24,11 +26,11 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps
 
-class JoinSession extends React.Component<Props, State> {
+export class JoinSession extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = {name: '', session: '', page: 1, debouncedClick: true};
+    this.state = {name: '', sessionPin: '', page: this.props.sessionId ? 2 : 1};
   }
 
   render = (): React$Element<*> => (<div>
@@ -37,7 +39,7 @@ class JoinSession extends React.Component<Props, State> {
       <TextInput
         type="text"
         placeholder='Session Pin'
-        value={this.state.session}
+        value={this.state.sessionPin}
         textChanged={this.sessionChanged}
         onEnter={this.onNextPressed}
       />
@@ -55,16 +57,19 @@ class JoinSession extends React.Component<Props, State> {
   </div>)
 
   onSubmitPressed = () => {
-    const session: Object = this.props.pins[this.state.session]
+    const session: Object = (this.props.sessionId) ? {session: this.props.sessionId} : this.props.pins[this.state.sessionPin]
     if (session && session.session && this.state.name) {
       const sessionId: string = session.session
+      console.log(this.props)
       this.props.setLoginInfo(this.state.name, sessionId)
-      this.props.history.push(`/student/session/${sessionId}`)
+      if (this.props.onSubmit) {
+        this.props.onSubmit(sessionId, this.state.name)
+      }
     }
   }
 
   onNextPressed = () => {
-    const session: Object = this.props.pins[this.state.session]
+    const session: Object = this.props.pins[this.state.sessionPin]
     if (session && session.session) {
       this.setState({page: this.state.page + 1})
     }
@@ -75,12 +80,6 @@ class JoinSession extends React.Component<Props, State> {
   }
 
   sessionChanged = (newSession: string) => {
-    this.setState({session: newSession})
+    this.setState({sessionPin: newSession})
   }
 }
-
-const composedComponent = compose(
-  withRouter
-)(JoinSession)
-
-export { composedComponent as JoinSession }
