@@ -1,5 +1,3 @@
-// Using current version of javascript so 'webpack' macros work.
-
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
 const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');

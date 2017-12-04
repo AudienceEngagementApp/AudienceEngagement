@@ -1,7 +1,4 @@
-// Using current version of javascript so 'webpack' macros work.
-
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
-const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path')
 const webpack = require('webpack')
@@ -49,6 +46,9 @@ module.exports = {
               options: {
                 plugins: () => [
                   'postcss-import',
+                  'autoprefixer': { add: false, browsers: [] },
+                  'postcss-next',
+                  'cssnano'
                 ]
               }
             }
@@ -69,7 +69,13 @@ module.exports = {
   },
   plugins: [
     new ExtractTextWebpackPlugin('app.css'),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+      compress: {
+        warnings: false,
+        drop_console: true
+      }
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {

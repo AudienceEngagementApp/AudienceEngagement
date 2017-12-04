@@ -9,6 +9,7 @@
 .*/node_modules/react-grid-layout/build/*
 .*/node_modules/react-resizable/build/*
 .*/node_modules/immutable/dist/*
+./firebase/*
 
 [include]
 ./node_modules/react

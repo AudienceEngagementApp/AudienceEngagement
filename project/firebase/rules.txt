@@ -1,0 +1,113 @@
+{
+  /*
+   * This is the first draft of the database architecture.
+   *
+   * One other idea that would be easy to switch to (and would clean up the structure a bit)
+   * would be to combine 'session' and 'lesson' to be the same thing - because they practically are.
+   * That would remove the nasty ref statements I've put in.
+   */
+
+  "rules": {
+    // Because we don't authenticate users both of these are true.
+    ".read": "true",
+    // TODO: switch the following to true when the rules are finalized.
+    ".write": "false",
+    // Always include top-level tables
+    ".validate": "data.hasChildren(['pins', 'sessions', 'lessons'])",
+    // The map of pins to session IDs.
+    "pins": {
+      "$pin": {
+        ".validate": "$pin.matches(/^[0-9a-f]{3}-[0-9a-f]{3}$/)",
+        "session": {
+          ".validate": "newData.isNumber() && root.child('sessions').hasChild(newData.val())"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "sessions": {
+      "$session": {
+        // Must be UUID and have all children specified.
+        ".validate": "newData.hasChildren(['lesson','state'])
+        	&& $session.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
+        "lesson": {
+          // Ref. validate lesson exists
+          ".validate": "newData.isNumber() && root.child('lessons').hasChild(newData.val())"
+        },
+        "question": {
+          // Ref. Validate question exists in lesson
+          ".validate": "newData.isNumber()
+          	&& root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').hasChild(newData.val())"
+        },
+        "state": {
+          ".validate": "newData.isNumber() && newData.val() > 0" // 0) question-active, 1) question-inactive 2) waiting to join
+        },
+        "answers": {
+          "$question": {
+            // Only allow writing to current question
+            ".write": "root.child('sessions').child($session).child('state').val() == 0 && root.child('session').child($session).child('question').val() == $question",
+            // Question must exist
+            ".validate": "root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').hasChild($question)",
+            "$user": { // This should really be UID but we'll do this because I don't want to authenticate.
+              // Enforce answer restrictions according to question type. (MC vs Bool vs Free)
+							".validate": "$user.length < 32 &&
+              	root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 0
+                ? newData.isNumber() && root.child('lessons').child(root.child('session').child($session).child('lesson').val()).child('questions').child($question).child('answers').hasChild(newData.val())
+              	: root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 1
+              		? newData.isNumber() && ( newData.val() == 0 || newData.val() == 1 )
+              		: root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 2
+              			? newData.isString() && newData.val().length < 128
+              			: false"
+              // That was horrible.
+            }
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "lessons": {
+      "$lesson": {
+        // Lesson must be UUID
+        ".validate": "newData.hasChild('name')
+        	&& $lesson.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length < 128"
+        },
+        "questions": {
+          "$question": {
+            // Question must be UUID and have question and type
+        		".validate": "newData.hasChildren(['question','type'])
+            	&& ( newData.child('type').val() != 0 || newData.hasChild('answers') )
+            	&& $question.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
+            "question": {
+              ".validate": "newData.isString() && newData.val().length < 128"
+            },
+            "type": {
+          		".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() < 3" // 0) MC, 1) Bool, 2) Free
+            },
+            "answers": {
+              // Only include if MC.
+              ".validate": "newData.parent().child('type').val() == 0",
+              "$choice": {
+                // Enforce name is a letter
+                ".validate": "newData.isString() && newData.val().length < 128 && $choice.matches(/^[A-Z]$/)"
+              }
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "$other": {
+      ".validate": false
+    }
+  }
+}
