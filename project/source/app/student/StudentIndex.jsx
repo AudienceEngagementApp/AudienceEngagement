@@ -6,7 +6,7 @@ import {Link, Route, Switch, withRouter, Redirect} from 'react-router-dom'
 import {firebaseConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 import React from 'react'
 import {type StoreState} from 'app/state/index'
-import {setLoginInfo} from 'app/actions/LoginInfoAction'
+import {getSetLoginInfoCommand} from 'app/actions/LoginInfoAction'
 import {compose, type Dispatch} from 'redux'
 import {connect, type Connector} from 'react-redux'
 
@@ -65,9 +65,7 @@ const mapStateToProps = (storeState: StoreState, ownProps: OwnProps): StateProps
 }
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => ({
-  setLoginInfo: (name: string, sessionId: string) => {
-    dispatch(setLoginInfo(name, sessionId));
-  },
+  setLoginInfo: getSetLoginInfoCommand(dispatch, ownProps),
 })
 
 const composedComponent = compose(

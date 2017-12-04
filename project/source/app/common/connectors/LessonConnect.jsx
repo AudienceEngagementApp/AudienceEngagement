@@ -1,7 +1,5 @@
 // @flow
 
-// TODO: Make this a HOC
-
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose, type Dispatch} from 'redux'

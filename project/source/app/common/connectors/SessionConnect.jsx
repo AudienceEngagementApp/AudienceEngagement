@@ -7,6 +7,7 @@ import {firebaseConnect, isLoaded, isEmpty, toJS, actionTypes} from 'react-redux
 import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import {Loading} from 'app/common/Loading'
+import {getSetStateCommand, getAnswerQuestionCommand} from 'app/actions/SessionAction'
 
 type OwnProps = {
   sessionId: string,
@@ -34,15 +35,8 @@ export const sessionConnect = <A>(Component: React.Component<A & StateProps & Di
     }
   }
   const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => ({
-    setState: (state: number): void => {
-      if (state >= 0) {
-        ownProps.firebase.set(`sessions/${ownProps.sessionId}/state`, state)
-      }
-    },
-    answerQuestion: (questionId: string, answer: (string | number)): void => {
-      console.log(`attempting to answer at path sessions/${ownProps.sessionId}/answers/${questionId}/${ownProps.name} with ${answer.toString()}`)
-      ownProps.firebase.set(`sessions/${ownProps.sessionId}/answers/${questionId}/${ownProps.name}`, answer)
-    }
+    setState: getSetStateCommand(dispatch, ownProps),
+    answerQuestion: getAnswerQuestionCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
     connect(mapStateToProps, mapDispatchToProps),

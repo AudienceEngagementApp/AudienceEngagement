@@ -7,6 +7,7 @@ import {firebaseConnect, isLoaded, isEmpty, toJS, actionTypes} from 'react-redux
 import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import uuidv4 from 'uuid/v4'
+import {getAddSessionCommand} from 'app/actions/SessionAction'
 
 type OwnProps = {
   children: React$Node,
@@ -32,23 +33,7 @@ export const allSessionConnect = <A>(Component: React.Component<A & StateProps &
     }
   }
   const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps): DispatchProps => ({
-    addSession: (lessonId: string): void => {
-      const sessionId = uuidv4()
-      const makeId = (): string => {
-        const possible = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        const map = Array.prototype.map
-        return map.call('***-***', (char: string): string => {
-          if (char.charAt(0) == '*') {
-            return possible.charAt(Math.floor(Math.random() * possible.length))
-          } else {
-            return char.charAt(0)
-          }
-        }).join('')
-      }
-      const pin = makeId()
-      ownProps.firebase.push(`sessions/${sessionId}`, {lesson: lessonId, state: 2})
-      ownProps.firebase.push(`pins/${pin}`, {session: sessionId})
-    }
+    addSession: getAddSessionCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
     connect(mapStateToProps, mapDispatchToProps),

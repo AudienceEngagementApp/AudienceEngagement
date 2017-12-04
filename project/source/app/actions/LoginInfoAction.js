@@ -17,25 +17,31 @@ export type Action = {
   type: ActionType,
 }
 
-export const setName = (name: string) => ({
-  type: ActionTypes.set,
-  data: {
-    name: name
-  }
-})
+export const getSetNameCommand = (dispatch: Dispatch, ownProps: Object): (string => void) => {
+  return (name: string) => dispatch({
+    type: ActionTypes.set,
+    data: {
+      name: name
+    }
+  })
+}
 
-export const setSessionId = (sessionId: string) => ({
-  type: ActionTypes.set,
-  data: {
-    sessionId: sessionId
-  }
-})
+export const getSetSessionIdCommand = (dispatch: Dispatch, ownProps: Object): (string => void) => {
+  return (sessionId: string) => dispatch({
+    type: ActionTypes.set,
+    data: {
+      sessionId: sessionId
+    }
+  })
+}
 
 
-export const setLoginInfo = (name: string, sessionId: string) => ({
-  type: ActionTypes.set,
-  data: {
-    name: name,
-    sessionId: sessionId
-  }
-})
+export const getSetLoginInfoCommand = (dispatch: Dispatch, ownProps: Object): ((string, string) => void) => {
+  return (name: string, sessionId: string) => dispatch({
+    type: ActionTypes.set,
+    data: {
+      name: name,
+      sessionId: sessionId
+    }
+  })
+}
