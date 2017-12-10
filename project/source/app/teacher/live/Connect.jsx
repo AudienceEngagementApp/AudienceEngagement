@@ -2,21 +2,32 @@
 
 import React from 'react'
 import {BigBanner} from 'app/common/BigBanner'
+import {type StoreState} from 'app/state/index'
+import {compose, type Dispatch} from 'redux'
+import {connect, type Connector} from 'react-redux'
+import {firebaseConnect} from 'react-redux-firebase'
+import _ from 'underscore'
 
 import styles from 'styles/teacher/connect/connect.scss'
 
-type Props = {
+type OwnProps = {
   onSubmit: () => void,
-  //sessionPin: string,
-  //session: Object,
+  sessionId: string,
 }
+type StateProps = {
+  pins: Object
+}
+type DispatchProps = {
+}
+type Props = OwnProps & StateProps & DispatchProps
 
-export class Connect extends React.Component<Props>{
+class Connect extends React.Component<Props>{
 
-  render = (): React$Element<*> => (
-    <div className="container">
+  render = (): React$Element<*> => {
+    const thisPin: string = _.keys(this.props.pins).find((pin: string) => (this.props.pins[pin].session == this.props.sessionId))
+    return <div className="container">
       <BigBanner>
-        <b>Go to {window.location.hostname + (window.location.port != 80 ? `:${window.location.port}` : '') + '/#/student'}</b> and enter Session <b>PIN: 432 AZr</b>
+        <b>Go to {window.location.hostname + (window.location.port != 80 ? `:${window.location.port}` : '') + '/#/student'}</b> and enter Session <b>PIN: {thisPin}</b>
       </BigBanner>
       <div className="content">
         <span className="total-joined">
@@ -33,5 +44,23 @@ export class Connect extends React.Component<Props>{
         <span>Get your <b>phone</b>, <b>laptop</b>, or <b>tablet</b> out now!</span>
       </div>
     </div>
+  }
+}
+
+const mapStateToProps = (storeState: StoreState, ownProps: OwnProps): StateProps => {
+  const rawData: Object = storeState.firebase.data.pins
+  return Object.assign({},
+    rawData ? {pins: rawData} : {pins: {}},
+    ownProps,
   )
 }
+
+const composedComponent = compose(
+  connect(mapStateToProps),
+  firebaseConnect((ownProps: OwnProps): Array<string> => {
+    console.log('Connecting to /pins')
+    return ['/pins']
+  })
+)(Connect)
+
+export { composedComponent as Connect }

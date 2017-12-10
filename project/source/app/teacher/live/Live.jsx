@@ -37,7 +37,7 @@ class Live extends React.Component<Props>{
         (this.props.hasSeenConnectScreen) ? (
           <Session sessionId={props.match.params.sessionId} {...this.props}/>
         ) : (
-          <Connect onSubmit={this.onConnectStart} {...this.props}/>
+          <Connect sessionId={props.match.params.sessionId} onSubmit={this.onConnectStart} {...this.props}/>
         )
       } />
       <Route path='/teacher/live' component={() =>
