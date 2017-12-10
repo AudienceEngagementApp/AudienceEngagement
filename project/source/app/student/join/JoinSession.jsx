@@ -60,7 +60,6 @@ export class JoinSession extends React.Component<Props, State> {
     const session: Object = (this.props.sessionId) ? {session: this.props.sessionId} : this.props.pins[this.state.sessionPin]
     if (session && session.session && this.state.name) {
       const sessionId: string = session.session
-      console.log(this.props)
       this.props.setLoginInfo(this.state.name, sessionId)
       if (this.props.onSubmit) {
         this.props.onSubmit(sessionId, this.state.name)
