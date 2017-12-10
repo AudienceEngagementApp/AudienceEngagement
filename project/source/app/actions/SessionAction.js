@@ -38,3 +38,15 @@ export const getAnswerQuestionCommand = (dispatch: Dispatch, ownProps: Object): 
     ownProps.firebase.set(`sessions/${ownProps.sessionId}/answers/${questionId}/${ownProps.name}`, answer)
   }
 }
+
+export const getSetLessonCommand = (dispatch: Dispatch, ownProps: Object): ((string) => void) => {
+  return (lessonId: string): void => {
+    ownProps.firebase.set(`sessions/${ownProps.sessionId}/lesson`, lessonId)
+  }
+}
+
+export const getSetQuestionCommand = (dispatch: Dispatch, ownProps: Object): ((string) => void) => {
+  return (questionId: string): void => {
+    ownProps.firebase.set(`sessions/${ownProps.sessionId}/question`, questionId)
+  }
+}

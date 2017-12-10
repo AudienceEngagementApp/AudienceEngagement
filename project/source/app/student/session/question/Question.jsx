@@ -6,6 +6,7 @@ import {BoolQuestion} from 'app/student/session/question/BoolQuestion'
 import {MCQuestion} from 'app/student/session/question/MCQuestion'
 import {FRQuestion} from 'app/student/session/question/FRQuestion'
 import {lessonConnect} from 'app/common/connectors/LessonConnect'
+import {Error} from 'app/common/Error'
 import {compose} from 'redux'
 
 type Props = {
@@ -38,10 +39,10 @@ class Question extends React.Component<*>{
           onSubmit={this.answerQuestion}
         />
       } else {
-        return <div>An Error Occured</div>
+        return <Error message='An Error Occured' />
       }
     } else {
-      return <div>An Error Occured</div>
+      return <Error message='An Error Occured' />
     }
   }
 

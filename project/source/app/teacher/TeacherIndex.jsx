@@ -10,7 +10,7 @@ import {compose, type Dispatch} from 'redux'
 
 export class TeacherIndex extends React.Component<*>{
 
-  render = (): React$Element<*> => (<div>
+  render = (): React$Element<*> => (
     <Switch>
       <Route path='/teacher/lesson/:lessonId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/question/:question([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={
         EditQuestionFromURL
@@ -25,7 +25,7 @@ export class TeacherIndex extends React.Component<*>{
         <TeacherHome  {...this.props}/>
       )} />
     </Switch>
-  </div>)
+  )
 }
 
 type QuestionMatchProps = {
