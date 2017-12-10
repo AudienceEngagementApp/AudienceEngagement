@@ -17,7 +17,7 @@ if (module.hot) {
   module.hot.accept('app/App.jsx', () => {
     const NextApp = require('app/App.jsx').default
     ReactDOM.render(
-      <AppContainer app={NextApp} store={store}/>,
+      <AppContainer app={NextApp} store={store} />,
       document.getElementById('root')
     )
   })

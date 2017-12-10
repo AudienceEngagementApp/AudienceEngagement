@@ -11,7 +11,6 @@ type Props = {
 
 export class Results extends React.Component<*>{
   render = (): React$Element<*> => {
-    console.log(this.props.question)
     if (this.props.question) {
       if (this.props.question.type == 0 || this.props.question.type == 1) {
         const allAnswers: Array<string> = _.values(this.props.answers)
