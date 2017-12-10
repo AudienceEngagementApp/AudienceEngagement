@@ -20,11 +20,19 @@ class SessionWithLesson extends React.Component<Props>{
     if (this.props.session.question) {
       if (this.props.session.state == 0) {
         // display active question
-        return <LiveQuestion {...this.props} questionId={this.props.session.question} isActive={true} />
+        return <LiveQuestion {...this.props}
+          questionId={this.props.session.question}
+          isActive={true} />
       } else if (this.props.session.state == 1) {
         if (_.keys(this.props.session.answers).length > 0) {
           // display results
-          return <Results />
+          if (this.props.lesson) {
+            return <Results  {...this.props}
+              answers={this.props.session.answers[this.props.session.question]}
+              question={this.props.lesson.questions[this.props.session.question]}/>
+          } else {
+            return <Error message={`Lesson not found`} />
+          }
         } else {
           // display inactive question
           return <LiveQuestion {...this.props} isActive={false} />
