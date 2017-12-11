@@ -50,7 +50,7 @@ module.exports = {
               options: {
                 plugins: () => [
                   'postcss-import',
-                  'autoprefixer': { add: false, browsers: [] },
+                  {loader: 'autoprefixer', options: { add: false, browsers: [] }},
                   'postcss-next',
                   'cssnano'
                 ]
