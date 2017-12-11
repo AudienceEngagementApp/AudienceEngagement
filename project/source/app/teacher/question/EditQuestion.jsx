@@ -18,7 +18,11 @@ type Props = {
 class EditQuestion extends React.Component<Props> {
 
   render = (): React$Element<*> => {
-    if (this.props.lesson && this.props.lesson.questions && this.props.questionId && this.props.lesson.questions[this.props.questionId]) {
+    if (this.props.lesson &&
+      this.props.lesson.questions &&
+      this.props.questionId &&
+      this.props.lesson.questions[this.props.questionId]
+    ) {
       const question: Object = this.props.lesson.questions[this.props.questionId]
       if (question.type == 0) {
         return <Question

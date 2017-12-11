@@ -25,13 +25,13 @@ export class MCQuestion extends React.Component<*, *>{
     const answerChoices: Array<string> = _.keys(this.props.answers)
     const answerElements: Array<React$Element<*>> = answerChoices.map((key: string) => {
       if (this.state && this.state.currentSelection == key) {
-        return <div onClick={this.getItemSelectedFunction(key)} key={key}>You've selected {key}</div>
+        return <div className='answer-box selected' onClick={this.getItemSelectedFunction(key)} key={key}>You've selected {key}</div>
       } else {
-        return <div onClick={this.getItemSelectedFunction(key)} key={key}>{key + ': ' + this.props.answers[key]}</div>
+        return <div className='answer-box' onClick={this.getItemSelectedFunction(key)} key={key}>{key + ': ' + this.props.answers[key]}</div>
       }
     })
-    return (<div>
-      <h3>{this.props.question}</h3>
+    return (<div className='student-question'>
+      <h2>{this.props.question}</h2>
       {answerElements}
       <button onClick={this.onSubmitPressed}>Submit Answer</button>
     </div>)

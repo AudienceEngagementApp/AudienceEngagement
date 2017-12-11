@@ -13,6 +13,8 @@ import {Loading} from 'app/common/Loading'
 import {sessionConnect} from 'app/common/connectors/SessionConnect'
 import {Error} from 'app/common/Error'
 
+import styles from 'styles/student/session/_session.scss'
+
 type Props = {
   name: string,
   session?: {
@@ -47,46 +49,47 @@ const dBStateToSessionState = (dbState: number): SessionState => {
 }
 
 class Session extends React.Component<Props>{
-
   render = (): React$Element<*> => {
-    if (this.props.session) {
-      const state: SessionState = dBStateToSessionState(this.props.session.state)
-      switch(state) {
-        case SessionStates.activeQuestion:
-          if (this.props.session &&
-            this.props.session.answers &&
-            this.props.session.answers[this.props.session.question] &&
-            this.props.session.answers[this.props.session.question][this.props.name]) {
-            return <Waiting
-              title={`Response Recieved`}
-              text={'We\'re waiting for your classmates to respond'}
-            />
-          } else if (this.props.session && this.props.session.lesson && this.props.session.question) {
-            return <Question questionId={this.props.session.question} lessonId={this.props.session.lesson} answerQuestion={this.props.answerQuestion}/>
-          } else {
+    return <div className='student-session'>{(() => {
+      if (this.props.session) {
+        const state: SessionState = dBStateToSessionState(this.props.session.state)
+        switch(state) {
+          case SessionStates.activeQuestion:
+            if (this.props.session &&
+              this.props.session.answers &&
+              this.props.session.answers[this.props.session.question] &&
+              this.props.session.answers[this.props.session.question][this.props.name]) {
+              return <Waiting
+                title={`Response Recieved`}
+                text={'We\'re waiting for your classmates to respond'}
+              />
+            } else if (this.props.session && this.props.session.lesson && this.props.session.question) {
+              return <Question questionId={this.props.session.question} lessonId={this.props.session.lesson} answerQuestion={this.props.answerQuestion}/>
+            } else {
+              return <Waiting
+                title={`Welcome ${this.props.name}`}
+                text={'We\'re waiting for the teacher to start a question'}
+              />
+            }
+          case SessionStates.waitingForPlayers:
             return <Waiting
               title={`Welcome ${this.props.name}`}
-              text={'We\'re waiting for the teacher to start a question'}
+              text={'We\'re waiting for your classmates to join'}
             />
-          }
-        case SessionStates.waitingForPlayers:
-          return <Waiting
-            title={`Welcome ${this.props.name}`}
-            text={'We\'re waiting for your classmates to join'}
-          />
-        case SessionStates.responsesRecieved:
-          return <Waiting
-            title={`Response Recieved`}
-            text={'We\'re waiting for your teacher to tally the results'}
-          />
-        case SessionStates.incorrectState:
-          return <Error message='Incorrect state found in session' />
-        default:
-          return <Error message='Incorrect state found in session' />
+          case SessionStates.responsesRecieved:
+            return <Waiting
+              title={`Response Recieved`}
+              text={'We\'re waiting for your teacher to tally the results'}
+            />
+          case SessionStates.incorrectState:
+            return <Error message='Incorrect state found in session' />
+          default:
+            return <Error message='Incorrect state found in session' />
+        }
+      } else {
+        return <Loading />
       }
-    } else {
-      return <Loading />
-    }
+    })()}</div>
   }
 }
 

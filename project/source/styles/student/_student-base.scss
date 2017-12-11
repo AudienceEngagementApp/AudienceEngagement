@@ -1,0 +1,14 @@
+@import '~styles/colors';
+
+.student {
+  background-color: $primary-light-blue;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-family: Montserrat;
+  font-size: 24px;
+  color: $white;
+  h1 {
+    text-align: center;
+  }
+}

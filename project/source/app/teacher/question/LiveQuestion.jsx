@@ -9,16 +9,22 @@ type Props = {
   lesson?: {
     questions: Object
   },
-  questionId: string,
+  session: {
+    question: string,
+  },
   isActive: boolean
 }
 
 export class LiveQuestion extends React.Component<*>{
 
   render = (): React$Element<*> => {
-    if (this.props.lesson && this.props.lesson.questions[this.props.questionId] && this.props.lesson.questions[this.props.questionId].type && this.props.lesson.questions[this.props.questionId].question) {
-      const question = this.props.lesson.questions[this.props.questionId]
-      if (question.type == 0 && question.question && question.answers && Object.keys(question.answers).length > 0) {
+    if (this.props.lesson &&
+      this.props.lesson.questions[this.props.session.question] &&
+      this.props.lesson.questions[this.props.session.question].type &&
+      this.props.lesson.questions[this.props.session.question].question
+    ) {
+      const question = this.props.lesson.questions[this.props.session.question]
+      if (question.type == 0) {
         return <Question
           question={question.question}
           answerChoices={question.answers}
@@ -41,7 +47,7 @@ export class LiveQuestion extends React.Component<*>{
           answersEditable={false}
         />
       } else {
-        return <Error message='An Error Occured' />
+        return <Error message='Incorrect question type' />
       }
     } else {
       return <Error message='An Error Occured' />

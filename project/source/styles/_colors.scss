@@ -3,11 +3,13 @@ $black: #000000;
 $primary-light-blue: #2895FF;
 $primary-dark-blue: #227ED9;
 $text-dark-gray: #4A4A4A;
+$text-light-gray: #969696;
 
 :export {
   white: $white;
   black: $black;
-  primary-light-blue: primary-light-blue;
+  primary-light-blue: $primary-light-blue;
   primary-dark-blue: $primary-dark-blue;
-  primary-dark-blue: $text-dark-gray;
+  text-dark-gray: $text-dark-gray;
+  text-light-gray: $text-light-gray;
 }

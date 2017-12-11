@@ -18,15 +18,15 @@ export class BoolQuestion extends React.Component<OwnProps, State> {
     this.getItemSelectedFunction = this.getItemSelectedFunction.bind(this)
   }
 
-  render = (): React$Element<*> => <div>
-    <h3>{this.props.question}</h3>
+  render = (): React$Element<*> => <div className='student-question'>
+    <h2>{this.props.question}</h2>
     {(this.state && this.state.currentSelection == true) ?
-      <div onClick={this.getItemSelectedFunction(true)}>You've selected true</div> :
-      <div onClick={this.getItemSelectedFunction(true)}>True</div>
+      <div className='answer-box selected' onClick={this.getItemSelectedFunction(true)}>You've selected true</div> :
+      <div className='answer-box' onClick={this.getItemSelectedFunction(true)}>True</div>
     }
     {(this.state && this.state.currentSelection == false) ?
-      <div onClick={this.getItemSelectedFunction(false)}>You've selected false</div> :
-      <div onClick={this.getItemSelectedFunction(false)}>false</div>
+      <div className='answer-box selected' onClick={this.getItemSelectedFunction(false)}>You've selected false</div> :
+      <div className='answer-box' onClick={this.getItemSelectedFunction(false)}>false</div>
     }
     <button onClick={this.onSubmitPressed}>Submit Answer</button>
   </div>

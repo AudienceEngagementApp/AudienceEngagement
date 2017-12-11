@@ -20,8 +20,8 @@ export class FRQuestion extends React.Component<OwnProps, State> {
     this.textChanged = this.textChanged.bind(this)
   }
 
-  render = (): React$Element<*> => <div>
-    <h3>{this.props.question}</h3>
+  render = (): React$Element<*> => <div className='student-question'>
+    <h2>{this.props.question}</h2>
     <TextInput textChanged={this.textChanged} onEnter={this.onSubmitPressed} />
     <button onClick={this.onSubmitPressed}>Submit Answer</button>
   </div>

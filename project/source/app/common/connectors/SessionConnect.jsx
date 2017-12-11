@@ -20,7 +20,7 @@ type StateProps = {
 type DispatchProps = {
   setState: (state: number) => void,
   answerQuestion: (questionId: string, answer: (string | number)) => void,
-  setLesson: (lessonId: string) => void
+  setLesson: (lessonId: string, questionId: ?string) => void
 }
 type Props = OwnProps & StateProps & DispatchProps
 

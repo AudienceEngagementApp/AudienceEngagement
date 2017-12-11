@@ -10,6 +10,8 @@ import {getSetLoginInfoCommand} from 'app/actions/LoginInfoAction'
 import {compose, type Dispatch} from 'redux'
 import {connect, type Connector} from 'react-redux'
 
+import styles from 'styles/student/_student-base.scss'
+
 type OwnProps = {
   match: Object,
   history: Object
@@ -34,7 +36,7 @@ type Props = OwnProps & StateProps & DispatchProps
 class StudentIndex extends React.Component<Props>{
 
   render = (): React$Element<*> => {
-    return (<div>
+    return (<div className='student'>
       <Switch>
         <Route path='/student/session/:sessionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={(matchProps: SessionMatchProps) =>
           this.props.name ? (

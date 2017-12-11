@@ -10,12 +10,19 @@ type Props = {
   session: Object,
   lessons: Object,
   children?: React$Node,
-  setLesson: (lessonId: string) => void
+  setLesson: (lessonId: string, questionId: ?string) => void
 }
 
 class SessionNoLesson extends React.Component<Props>{
   render = (): React$Element<*> => {
-    const lessonElements = _.keys(this.props.lessons).map((lessonId: string) => (<li key={lessonId} onClick={() => this.props.setLesson(lessonId)}>
+    const lessonElements = _.keys(this.props.lessons).map((lessonId: string) => (
+      <li
+        key={lessonId}
+        onClick={() => _.keys(this.props.lessons[lessonId].questions).length ?
+          this.props.setLesson(lessonId, _.keys(this.props.lessons[lessonId].questions)[0]) :
+          this.props.setLesson(lessonId)
+        }
+      >
       {this.props.lessons[lessonId].name} <button>Use</button>
     </li>))
     return (<div>

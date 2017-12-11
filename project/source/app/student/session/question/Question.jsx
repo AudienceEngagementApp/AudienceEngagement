@@ -9,6 +9,8 @@ import {lessonConnect} from 'app/common/connectors/LessonConnect'
 import {Error} from 'app/common/Error'
 import {compose} from 'redux'
 
+import styles from 'styles/student/session/_question.scss'
+
 type Props = {
   lesson?: {
     questions: Object

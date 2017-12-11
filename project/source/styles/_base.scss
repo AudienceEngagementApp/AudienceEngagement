@@ -1,24 +1,20 @@
 @import 'colors';
 
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 html, body {
   padding: 0;
   margin: 0;
   min-height: 100%;
   height: 100%;
   color: $black;
-  h1, h2, h3, h4, h5, h6, p, div, span {
-    font-family: Montserrat;
-  }
-
-
-
+  font-family: Montserrat;
   .btn {
     &:hover {
       cursor: pointer;
     }
   }
-
-
   .container {
     min-height: 100vh;
     display: flex;

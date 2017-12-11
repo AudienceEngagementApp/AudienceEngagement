@@ -6,6 +6,8 @@ import uuidv4 from 'uuid/v4'
 import {Link, Route, Switch, type History} from 'react-router-dom'
 import {compose} from 'redux'
 
+import styles from 'styles/student/join/_join-session.scss'
+
 type State = {
   name: string,
   sessionPin: string,
@@ -33,9 +35,9 @@ export class JoinSession extends React.Component<Props, State> {
     this.state = {name: '', sessionPin: '', page: this.props.sessionId ? 2 : 1};
   }
 
-  render = (): React$Element<*> => (<div>
+  render = (): React$Element<*> => (<div className='join-session'>
     <h1>InvolveMe</h1>
-    {(this.state.page == 1) ? (<div>
+    {(this.state.page == 1) ? (<div className='input'>
       <TextInput
         type="text"
         placeholder='Session Pin'
@@ -43,8 +45,8 @@ export class JoinSession extends React.Component<Props, State> {
         textChanged={this.sessionChanged}
         onEnter={this.onNextPressed}
       />
-      <button onClick={this.onNextPressed}>join</button>
-    </div>) : (<div>
+      <button onClick={this.onNextPressed}>JOIN</button>
+    </div>) : (<div className='input'>
       <TextInput
         type="text"
         placeholder='Enter Name'
@@ -52,7 +54,7 @@ export class JoinSession extends React.Component<Props, State> {
         textChanged={this.nameChanged}
         onEnter={this.onSubmitPressed}
       />
-      <button onClick={this.onSubmitPressed}>submit</button>
+      <button onClick={this.onSubmitPressed}>SUBMIT</button>
     </div>)}
   </div>)
 
