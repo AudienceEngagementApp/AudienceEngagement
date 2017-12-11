@@ -1,14 +1,12 @@
 // @flow
 
 import React from 'react'
-import {withRouter} from 'react-router-dom'
 import {compose} from 'redux'
 import {TextInput} from 'app/common/TextInput'
 import Modal from 'react-modal'
 
 type StateProps = {
-  history: *,
-  addLesson: (name: string) => string
+  newLesson: (name: string) => void
 }
 
 type State = {
@@ -17,7 +15,7 @@ type State = {
 
 type Props = StateProps
 
-class NewLessonModal extends React.Component<Props, State>{
+export class NewLessonModal extends React.Component<Props, State>{
 
   constructor(props: Props) {
     super(props)
@@ -39,18 +37,11 @@ class NewLessonModal extends React.Component<Props, State>{
     <button onClick={this.newLesson}>Submit</button>
   </Modal></div>)
 
-  newLesson = () => {
-    if (this.state.newLessonName) {
-      this.props.history.push(`/teacher/lesson/${this.props.addLesson(this.state.newLessonName)}`)
-    }
+  newLesson = (): void => {
+    this.props.newLesson(this.state.newLessonName)
   }
+
   lessonNameChanged = (newName: string): void => {
     this.setState({newLessonName: newName})
   }
 }
-
-const composedComponent = compose(
-  withRouter
-)(NewLessonModal)
-
-export { composedComponent as NewLessonModal }

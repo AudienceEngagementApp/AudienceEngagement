@@ -5,7 +5,7 @@ import {HashRouter as Router, hashHistory} from 'react-router-dom'
 import {type Store} from 'redux'
 import {Provider} from 'react-redux'
 
-import styles from 'styles/base.scss'
+import styles from 'styles/_base.scss'
 
 export const AppContainer = (props: {app: *, store: *}): React$Element<*> => (
   <Router history={hashHistory}>

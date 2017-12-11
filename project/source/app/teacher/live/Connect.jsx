@@ -8,11 +8,12 @@ import {connect, type Connector} from 'react-redux'
 import {firebaseConnect} from 'react-redux-firebase'
 import _ from 'underscore'
 
-import styles from 'styles/teacher/connect/connect.scss'
+import styles from 'styles/teacher/connect/_connect.scss'
 
 type OwnProps = {
   onSubmit: () => void,
   sessionId: string,
+  firebase: Object,
 }
 type StateProps = {
   pins: Object

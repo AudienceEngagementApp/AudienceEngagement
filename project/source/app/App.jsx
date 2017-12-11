@@ -9,7 +9,7 @@ import {Test} from 'app/Test'
 import {type Store} from 'redux'
 import {Loading} from 'app/common/Loading'
 
-import styles from 'styles/app.scss'
+import styles from 'styles/_app.scss'
 
 const display_seperate_home_page = false
 

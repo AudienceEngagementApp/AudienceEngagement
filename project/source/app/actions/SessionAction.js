@@ -18,8 +18,8 @@ export const getAddSessionCommand = (dispatch: Dispatch, ownProps: Object): (?st
       }).join('')
     }
     const pin = makeId()
-    ownProps.firebase.push(`sessions/${sessionId}`, Object.assign({}, lessonId? {lesson: lessonId} : {}, {state: 2}))
-    ownProps.firebase.push(`pins/${pin}`, {session: sessionId})
+    ownProps.firebase.set(`sessions/${sessionId}`, Object.assign({}, lessonId? {lesson: lessonId} : {}, {state: 2}))
+    ownProps.firebase.set(`pins/${pin}`, {session: sessionId})
     return sessionId
   }
 }

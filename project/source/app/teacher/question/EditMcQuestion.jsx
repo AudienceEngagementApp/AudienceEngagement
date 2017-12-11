@@ -5,7 +5,7 @@ import React, {Component, PropTypes} from 'react'
 //import {createMCQuestion} from 'app/actions/index'
 import {AnswerBox} from 'app/teacher/question/AnswerBox'
 
-import styles from 'styles/teacher/question/new-mc-question.scss'
+import styles from 'styles/teacher/question/_new-mc-question.scss'
 
 type Props = {
   question?: string,

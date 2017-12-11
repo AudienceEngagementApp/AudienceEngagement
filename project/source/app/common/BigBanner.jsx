@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import styles from 'styles/common/big-banner.scss'
+import styles from 'styles/common/_big-banner.scss'
 
 type Props = {
   children?: React$Node
