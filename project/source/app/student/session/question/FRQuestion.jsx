@@ -31,7 +31,7 @@ export class FRQuestion extends React.Component<OwnProps, State> {
   }
 
   onSubmitPressed = (): void => {
-    if (this.state && this.state.currentSelection) {
+    if (this.state && this.state.currentText) {
       this.props.onSubmit(this.state.currentText)
     }
   }

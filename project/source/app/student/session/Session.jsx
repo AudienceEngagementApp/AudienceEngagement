@@ -53,7 +53,10 @@ class Session extends React.Component<Props>{
       const state: SessionState = dBStateToSessionState(this.props.session.state)
       switch(state) {
         case SessionStates.activeQuestion:
-          if (this.props.session && this.props.session.answers && this.props.session.answers[this.props.session.question][this.props.name]) {
+          if (this.props.session &&
+            this.props.session.answers &&
+            this.props.session.answers[this.props.session.question] &&
+            this.props.session.answers[this.props.session.question][this.props.name]) {
             return <Waiting
               title={`Response Recieved`}
               text={'We\'re waiting for your classmates to respond'}

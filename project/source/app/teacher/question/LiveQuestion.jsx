@@ -3,6 +3,7 @@
 import React from 'react'
 import {Error} from 'app/common/Error'
 import {compose} from 'redux'
+import {Question} from 'app/teacher/question/Question'
 
 type Props = {
   lesson?: {
@@ -18,21 +19,27 @@ export class LiveQuestion extends React.Component<*>{
     if (this.props.lesson && this.props.lesson.questions[this.props.questionId] && this.props.lesson.questions[this.props.questionId].type && this.props.lesson.questions[this.props.questionId].question) {
       const question = this.props.lesson.questions[this.props.questionId]
       if (question.type == 0 && question.question && question.answers && Object.keys(question.answers).length > 0) {
-        return <Error message='Multiple choice question component not created' />
-        /*return <MCQuestion
+        return <Question
           question={question.question}
-          answers={question.answers}
-        />*/
+          answerChoices={question.answers}
+          correctAnswer={question.correct}
+          questionEditable={false}
+          answersEditable={false}
+        />
       } else if (question.type == 1) {
-        return <Error message='Boolean choice question component not created' />
-        /*return <BoolQuestion
+        return <Question
           question={question.question}
-        />*/
+          answerChoices={{T: 'True', F: 'False'}}
+          correctAnswer={question.correct == 1 ? 'True' : 'False'}
+          questionEditable={false}
+          answersEditable={false}
+        />
       } else if (question.type == 2) {
-        return <Error message='Free response choice question component not created' />
-        /*return <FRQuestion
+        return <Question
           question={question.question}
-        />*/
+          questionEditable={false}
+          answersEditable={false}
+        />
       } else {
         return <Error message='An Error Occured' />
       }

@@ -46,13 +46,16 @@ class SessionWithLesson extends React.Component<Props>{
   }
 
   componentWillReceiveProps = (nextProps: Props): void => {
+    console.log('Checking for valid session state')
     // Correct incorrect states in db
     if (nextProps.session.question) {
       if (nextProps.session.state != 0 && nextProps.session.state != 1) {
         nextProps.setState(1)
       }
     } else {
+      console.log('Question feild blank. Setting')
       if (_.keys(nextProps.lesson.questions).length > 0) {
+        console.log('Found valid question')
         nextProps.setQuestion(_.keys(nextProps.lesson.questions)[0])
       }
     }

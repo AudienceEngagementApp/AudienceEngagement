@@ -20,7 +20,12 @@ type Props = {
 class Question extends React.Component<*>{
 
   render = (): React$Element<*> => {
-    if (this.props.lesson && this.props.lesson.questions[this.props.questionId] && this.props.lesson.questions[this.props.questionId].type && this.props.lesson.questions[this.props.questionId].question) {
+    if (this.props.lesson &&
+      this.props.lesson.questions &&
+      this.props.lesson.questions[this.props.questionId] &&
+      (this.props.lesson.questions[this.props.questionId].type || this.props.lesson.questions[this.props.questionId].type === 0) &&
+      this.props.lesson.questions[this.props.questionId].question
+    ) {
       const question = this.props.lesson.questions[this.props.questionId]
       if (question.type == 0 && question.question && question.answers && Object.keys(question.answers).length > 0) {
         return <MCQuestion
@@ -39,10 +44,10 @@ class Question extends React.Component<*>{
           onSubmit={this.answerQuestion}
         />
       } else {
-        return <Error message='An Error Occured' />
+        return <Error message='Incorrect question type found' />
       }
     } else {
-      return <Error message='An Error Occured' />
+      return <Error message='Question not found' />
     }
   }
 

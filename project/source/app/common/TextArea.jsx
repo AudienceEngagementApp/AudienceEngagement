@@ -7,12 +7,12 @@ type Props = {
   textChanged: (s: string) => void,
 }
 
-export class TextInput extends React.Component<*>{
+export class TextArea extends React.Component<*>{
 
   render = (): React$Element<*> => {
     const {textChanged, onEnter, ...rest} = this.props
     return (
-      <input type="text"
+      <textarea type="text"
         onChange={this.textEntered}
         onKeyUp={this.props.onEnter ? this.onKeyUp : undefined}
        {...rest}
@@ -21,8 +21,9 @@ export class TextInput extends React.Component<*>{
   }
 
   textEntered = (event: SyntheticEvent<*>): void => {
+    console.log("Flag 1")
     const target = event.target
-    if (target instanceof HTMLInputElement) {
+    if (target instanceof HTMLTextAreaElement) {
       this.props.textChanged(target.value)
     }
   }

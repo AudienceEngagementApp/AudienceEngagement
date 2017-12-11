@@ -34,7 +34,7 @@ export const getSetStateCommand = (dispatch: Dispatch, ownProps: Object): (numbe
 
 export const getAnswerQuestionCommand = (dispatch: Dispatch, ownProps: Object): ((string, (string | number)) => void) => {
   return (questionId: string, answer: (string | number)): void => {
-    console.log(`attempting to answer at path sessions/${ownProps.sessionId}/answers/${questionId}/${ownProps.name} with ${answer.toString()}`)
+    console.log(`attempting to answer at path sessions/${ownProps.sessionId}/answers/${questionId}/${ownProps.name} with ${answer.toString()} (a ${typeof answer})`)
     ownProps.firebase.set(`sessions/${ownProps.sessionId}/answers/${questionId}/${ownProps.name}`, answer)
   }
 }

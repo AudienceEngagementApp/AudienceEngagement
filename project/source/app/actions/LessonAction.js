@@ -29,7 +29,7 @@ export const getAddQuestionCommand = (dispatch: Dispatch, ownProps: Object): ((s
           const answerElements: Object = _.object(_.range(answersNonNull.length).map((answerIter: number) => [alphabet.charAt(answerIter), answersNonNull[answerIter]]))
           ownProps.firebase.set(`lessons/${ownProps.lessonId}/questions/${questionId}`, {question: question, type: type, answers: answerElements})
         } else if (answersNonNull.length !== 0) {
-          const answerObject: Object = _.object(answersNonNull)
+          const answerObject: Object = _.object(_.map(answersNonNull, (value, key) => [key, value]))
           if (_.every(_.keys(answerObject), (key: string): boolean => (key.length == 1 && key.charAt(0) == key.charAt(0).toLowerCase() && typeof answerObject[key] == 'string'))) {
             ownProps.firebase.set(`lessons/${ownProps.lessonId}/questions/${questionId}`, {question: question, type: type, answers: answerObject})
           } else {
