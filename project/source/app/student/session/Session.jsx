@@ -58,7 +58,8 @@ class Session extends React.Component<Props>{
             if (this.props.session &&
               this.props.session.answers &&
               this.props.session.answers[this.props.session.question] &&
-              this.props.session.answers[this.props.session.question][this.props.name]) {
+              this.props.session.answers[this.props.session.question][this.props.name] != null
+            ) {
               return <Waiting
                 title={`Response Recieved`}
                 text={'We\'re waiting for your classmates to respond'}
