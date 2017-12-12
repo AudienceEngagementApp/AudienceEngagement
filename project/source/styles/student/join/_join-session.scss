@@ -18,16 +18,16 @@
       font-size: 18px;
       text-align: center;
       color: $black;
-      &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      &::-webkit-input-placeholder {
         color: $text-light-gray;
       }
-      &::-moz-placeholder { /* Firefox 19+ */
+      &::-moz-placeholder {
         color: $text-light-gray;
       }
-      &::-ms-input-placeholder { /* IE 10+ */
+      &::-ms-input-placeholder {
         color: $text-light-gray;
       }
-      &::-moz-placeholder { /* Firefox 18- */
+      &::-moz-placeholder {
         color: $text-light-gray;
       }
       margin-left: 5vw;

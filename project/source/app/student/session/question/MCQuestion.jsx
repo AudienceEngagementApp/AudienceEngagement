@@ -2,6 +2,7 @@
 
 import React from 'react'
 import _ from 'underscore'
+import classnames from 'classnames'
 
 type OwnProps = {
   question: string,
@@ -24,16 +25,19 @@ export class MCQuestion extends React.Component<*, *>{
   render = (): React$Element<*> => {
     const answerChoices: Array<string> = _.keys(this.props.answers)
     const answerElements: Array<React$Element<*>> = answerChoices.map((key: string) => {
-      if (this.state && this.state.currentSelection == key) {
-        return <div className='answer-box selected' onClick={this.getItemSelectedFunction(key)} key={key}>You've selected {key}</div>
-      } else {
-        return <div className='answer-box' onClick={this.getItemSelectedFunction(key)} key={key}>{key + ': ' + this.props.answers[key]}</div>
-      }
+      return (
+        <div className={classnames('answer-box', `choice-${answerChoices.indexOf(key) % 4}`, {'answer-selected': this.state && this.state.currentSelection == key})} key={key} onClick={this.getItemSelectedFunction(key)}>
+          <div className={classnames('color-wrapper')}>
+            <div className={classnames('letter-choice')}>{key}</div>
+            <div className={classnames('answer-choice')}>{this.props.answers[key]}</div>
+          </div>
+        </div>
+      )
     })
-    return (<div className='student-question'>
-      <h2>{this.props.question}</h2>
+    return (<div className={classnames('student-question')}>
+      <div className={classnames('text-wrapper')}><h2>{this.props.question}</h2></div>
       {answerElements}
-      <button onClick={this.onSubmitPressed}>Submit Answer</button>
+      <button onClick={this.onSubmitPressed}>SUBMIT ANSWER</button>
     </div>)
   }
 

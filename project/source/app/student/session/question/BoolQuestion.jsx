@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import classnames from 'classnames'
 
 type OwnProps = {
   question: string,
@@ -18,17 +19,21 @@ export class BoolQuestion extends React.Component<OwnProps, State> {
     this.getItemSelectedFunction = this.getItemSelectedFunction.bind(this)
   }
 
-  render = (): React$Element<*> => <div className='student-question'>
-    <h2>{this.props.question}</h2>
-    {(this.state && this.state.currentSelection == true) ?
-      <div className='answer-box selected' onClick={this.getItemSelectedFunction(true)}>You've selected true</div> :
-      <div className='answer-box' onClick={this.getItemSelectedFunction(true)}>True</div>
-    }
-    {(this.state && this.state.currentSelection == false) ?
-      <div className='answer-box selected' onClick={this.getItemSelectedFunction(false)}>You've selected false</div> :
-      <div className='answer-box' onClick={this.getItemSelectedFunction(false)}>false</div>
-    }
-    <button onClick={this.onSubmitPressed}>Submit Answer</button>
+  render = (): React$Element<*> => <div className={classnames('student-question')}>
+    <div className={classnames('text-wrapper')}><h2>{this.props.question}</h2></div>
+    <div className={classnames('answer-box', 'choice-0', {'answer-selected': this.state && this.state.currentSelection == true})} onClick={this.getItemSelectedFunction(true)}>
+      <div className={classnames('color-wrapper')}>
+        <div className={classnames('letter-choice')}>T</div>
+        <div className={classnames('answer-choice')}>True</div>
+      </div>
+    </div>
+    <div className={classnames('answer-box', 'choice-1', {'answer-selected': this.state && this.state.currentSelection == false})} onClick={this.getItemSelectedFunction(false)}>
+      <div className={classnames('color-wrapper')}>
+        <div className={classnames('letter-choice')}>F</div>
+        <div className={classnames('answer-choice')}>False</div>
+      </div>
+    </div>
+    <button onClick={this.onSubmitPressed}>SUBMIT ANSWER</button>
   </div>
 
   getItemSelectedFunction = (item: boolean): (() => void) => {

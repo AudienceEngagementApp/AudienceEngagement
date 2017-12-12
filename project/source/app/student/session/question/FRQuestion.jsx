@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {TextInput} from 'app/common/TextInput'
+import classnames from 'classnames'
 
 type OwnProps = {
   question: string,
@@ -20,10 +21,10 @@ export class FRQuestion extends React.Component<OwnProps, State> {
     this.textChanged = this.textChanged.bind(this)
   }
 
-  render = (): React$Element<*> => <div className='student-question'>
-    <h2>{this.props.question}</h2>
-    <TextInput textChanged={this.textChanged} onEnter={this.onSubmitPressed} />
-    <button onClick={this.onSubmitPressed}>Submit Answer</button>
+  render = (): React$Element<*> => <div className={classnames('student-question')}>
+    <div className={classnames('text-wrapper')}><h2>{this.props.question}</h2></div>
+    <div className='input'><TextInput textChanged={this.textChanged} onEnter={this.onSubmitPressed} /></div>
+    <button onClick={this.onSubmitPressed}>SUBMIT ANSWER</button>
   </div>
 
   textChanged = (newText: string) => {
