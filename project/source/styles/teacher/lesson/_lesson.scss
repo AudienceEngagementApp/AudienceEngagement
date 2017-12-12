@@ -1,7 +1,7 @@
 @import '~styles/colors';
 
 .lesson {
-  & > .top-bar {
+  .top-bar {
     height: 14.55%;
     width: auto;
     background-color: $primary-light-blue;
@@ -14,8 +14,10 @@
       margin-top: 30px;
       margin-bottom: 30px;
       letter-spacing: 1px;
+      span {
+        margin-right: 10px;
+      }
       svg {
-        margin-left: 10px;
         font-size: 58px;
       }
     }
@@ -34,7 +36,7 @@
       align: left;
     }
   }
-  & > .nav-bar {
+  .nav-bar {
     display: inline-block;
     width: auto;
     background-color: $primary-dark-blue;
@@ -62,7 +64,7 @@
       margin-left: -10px
     }
   }
-  & > .question {
+  .question {
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -92,6 +94,24 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      flex-wrap: wrap;
+      width: 15%;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .dynamic-show {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+  .dynamic-justify {
+    .top-bar {
+      justify-content: space-around;
+    }
+    .nav-bar {
+      justify-content: space-around;
     }
   }
 }

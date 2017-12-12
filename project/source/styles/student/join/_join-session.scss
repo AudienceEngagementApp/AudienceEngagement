@@ -2,7 +2,7 @@
 
 .join-session {
   h1 {
-    margin-top: 10vh;
+    margin-top: 25vh;
     font-family: 'Pacifico';
     width: 100vw;
   }
@@ -32,7 +32,6 @@
       }
       margin-left: 5vw;
       margin-right: 5vw;
-      margin-top: 5vw;
       display: inline-block;
       line-height: 44px;
       border-radius: 12px;
@@ -40,10 +39,11 @@
       max-width: 400px;
       border: 0 0 0 0;
       height: 45px;
+      font-family: "San Francisco";
     }
     button {
       display: inline-block;
-      margin-top: 5vw;
+      margin-top: 2vh;
       margin-left: 5vw;
       margin-right: 5vw;
       width: 80vw;
@@ -55,6 +55,23 @@
       font-weight: 600;
       color: $primary-light-blue;
       height: 51px;
+      font-family: Montserrat;
     }
+  }
+  .teacher-account {
+    background-color: $white;
+    color: $primary-light-blue;
+    font-size: 13px;
+    font-weight: 600;
+    position: fixed;
+    bottom: 0;
+    left: -10%;
+    height: 6vh;
+    width: 120%;
+    text-align: center;
+    padding-top: 4vh;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    line-height: 21px;
   }
 }

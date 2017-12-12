@@ -39,7 +39,7 @@ export class JoinSession extends React.Component<Props, State> {
     <h1>InvolveMe</h1>
     {(this.state.page == 1) ? (<div className='input'>
       <TextInput
-        type="text"
+        type='text'
         placeholder='Session Pin'
         value={this.state.sessionPin}
         textChanged={this.sessionChanged}
@@ -48,7 +48,7 @@ export class JoinSession extends React.Component<Props, State> {
       <button onClick={this.onNextPressed}>JOIN</button>
     </div>) : (<div className='input'>
       <TextInput
-        type="text"
+        type='text'
         placeholder='Enter Name'
         value={this.state.name}
         textChanged={this.nameChanged}
@@ -56,6 +56,7 @@ export class JoinSession extends React.Component<Props, State> {
       />
       <button onClick={this.onSubmitPressed}>SUBMIT</button>
     </div>)}
+    <Link to='/teacher'><div className='teacher-account'>TEACHER ACCOUNT</div></Link>
   </div>)
 
   onSubmitPressed = () => {

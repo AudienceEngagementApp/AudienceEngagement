@@ -85,23 +85,46 @@ class Lesson extends React.Component<Props, State>{
           onCopy={() => this.copyQuestion(questionId)}
           question={this.props.lesson.questions[questionId]}
       />)
-      return (<div className={classnames('lesson')} onClick={this.clearDropdowns}>
-        <div className={classnames('top-bar')}>
-          <h1>Start Live Session <PlayCircle onClick={this.liveSessionPressed}/></h1>
-          <Dropdown anchor={<h1 onClick={this.lessonMenuClicked} ><FaEllipsisV /></h1>} active={this.state.lessonMenuClicked} >
-            <h2 onClick={this.lessonDeleted}>Delete</h2>
-          </Dropdown>
+      return (
+        <div className={classnames('lesson')} onClick={this.clearDropdowns}>
+          <span className={classnames('dynamic-justify')} >
+            <div className={classnames('top-bar')}>
+              <h1>
+                <span className={classnames('dynamic-show')}>Start Live Session</span>
+                <PlayCircle onClick={this.liveSessionPressed}/>
+              </h1>
+              <Dropdown anchor={
+                <h1 onClick={this.lessonMenuClicked} >
+                  <FaEllipsisV />
+                </h1>
+              } active={this.state.lessonMenuClicked} >
+                <h2 onClick={this.lessonDeleted}>Delete</h2>
+              </Dropdown>
+            </div>
+          </span>
+          <span className={classnames('dynamic-justify')} >
+            <div className={classnames('nav-bar')}>
+              <h2>
+                <ArrowLeft onClick={this.backPressed}/>
+                <span className={classnames('dynamic-show')}>{this.props.lesson.name}</span>
+              </h2>
+              <Dropdown anchor={
+                <h2>
+                  <span className={classnames('dynamic-show')}>
+                    {questionElements.length} {'Question' + (questionElements.length > 1 ? 's' : '')}
+                  </span>
+                  <PlusCircle onClick={this.addQuestionClicked} />
+                </h2>
+              } active={this.state.addQuestionClicked} >
+                <h2 onClick={() => this.addQuestion(QuestionTypes.multipleChoice)} >Multiple Choice</h2>
+                <h2 onClick={() => this.addQuestion(QuestionTypes.trueFalse)} >True / False</h2>
+                <h2 onClick={() => this.addQuestion(QuestionTypes.freeResponse)} >Free Response</h2>
+              </Dropdown>
+            </div>
+          </span>
+          {questionElements}
         </div>
-        <div className={classnames('nav-bar')}>
-          <h2><ArrowLeft onClick={this.backPressed}/>{this.props.lesson.name}</h2>
-            <Dropdown anchor={<h2>{questionElements.length} {'Question' + (questionElements.length > 1 ? 's' : '')} <PlusCircle onClick={this.addQuestionClicked} /></h2>} active={this.state.addQuestionClicked} >
-              <h2 onClick={() => this.addQuestion(QuestionTypes.multipleChoice)} >Multiple Choice</h2>
-              <h2 onClick={() => this.addQuestion(QuestionTypes.trueFalse)} >True / False</h2>
-              <h2 onClick={() => this.addQuestion(QuestionTypes.freeResponse)} >Free Response</h2>
-            </Dropdown>
-        </div>
-        {questionElements}
-      </div>)
+      )
     } else {
       return <Error message='Could not find lesson' />
     }
