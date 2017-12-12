@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm install; babel-node index.js",
-    "prod": "npm install; webpack --config webpack.prod.config.js --progress"
+    "prod": "rm dist -rf; npm install; webpack --config webpack.prod.config.js --progress"
   },
   "dependencies": {
     "classnames": "2.2.5",
