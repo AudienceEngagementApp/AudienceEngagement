@@ -12,37 +12,37 @@ type Props = {
   lesson: Object,
   session: Object,
   setState: number => void,
-  setQuestion: string => void
+  setActiveQuestion: string => void,
+  resetSession: () => void,
 }
 
 class SessionWithLesson extends React.Component<Props>{
   render = (): React$Element<*> => {
     if (this.props.session.question) {
-      if (this.props.session.state == 0) {
+      if (this.props.session.state == 0 || this.props.session.state == 1) {
         // display active question
         return <LiveQuestion {...this.props}
           questionId={this.props.session.question}
-          isActive={true} />
-      } else if (this.props.session.state == 1) {
-        if (_.keys(this.props.session.answers).length > 0) {
-          // display results
-          if (this.props.lesson) {
-            return <Results  {...this.props}
-              answers={this.props.session.answers[this.props.session.question]}
-              question={this.props.lesson.questions[this.props.session.question]}/>
-          } else {
-            return <Error message={`Lesson not found`} />
-          }
-        } else {
-          // display inactive question
-          return <LiveQuestion {...this.props} isActive={false} />
-        }
-      } else {
+          onFinish={this.nextQuestion}
+        />
+      }  else {
         return <Error message={`Session in incorrect state`} />
       }
     } else {
       return <Error message={`Session does not have question selected`} />
     }
+  }
+
+  nextQuestion = () => {
+    const questions = this.props.lesson.questions
+    const sortedKeys = _.sortBy(_.keys(questions), (questionId) => questions[questionId].order)
+    const nextIndex = sortedKeys.indexOf(this.props.session.question) + 1
+    if (nextIndex >= sortedKeys.length) {
+      this.props.resetSession()
+    } else {
+      this.props.setActiveQuestion(sortedKeys[nextIndex])
+    }
+
   }
 
   componentWillReceiveProps = (nextProps: Props): void => {
@@ -56,7 +56,9 @@ class SessionWithLesson extends React.Component<Props>{
       console.log('Question feild blank. Setting')
       if (_.keys(nextProps.lesson.questions).length > 0) {
         console.log('Found valid question')
-        nextProps.setQuestion(_.keys(nextProps.lesson.questions)[0])
+        const questions = nextProps.lesson.questions
+        const sortedKeys = _.sortBy(_.keys(questions), (questionId) => questions[questionId].order)
+        nextProps.setActiveQuestion(sortedKeys[0])
       }
     }
   }

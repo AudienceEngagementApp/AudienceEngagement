@@ -11,6 +11,7 @@ import {connect, type Connector} from 'react-redux'
 import {Error} from 'app/common/Error'
 import {LiveIndex} from 'app/teacher/live/LiveIndex'
 import {getSetSeenConnectCommand} from 'app/actions/LiveConnectAction'
+import withTracker from 'app/common/withTracker'
 
 type OwnProps = {
 }
@@ -33,17 +34,17 @@ type SessionMatchProps = {
 class Live extends React.Component<Props>{
   render = (): React$Element<*> => (
     <Switch>
-      <Route path='/teacher/live/:sessionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={(props: SessionMatchProps) =>
+      <Route path='/teacher/live/:sessionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={withTracker((props: SessionMatchProps) =>
         (this.props.hasSeenConnectScreen) ? (
           <Session sessionId={props.match.params.sessionId} {...this.props}/>
         ) : (
           <Connect sessionId={props.match.params.sessionId} onSubmit={this.onConnectStart} {...this.props}/>
         )
-      } />
-      <Route path='/teacher/live' component={() =>
+      )} />
+      <Route path='/teacher/live' component={withTracker(() =>
         // Spawn new session
         <LiveIndex />
-      } />
+      )} />
     </Switch>
   )
   onConnectStart = (): void => {

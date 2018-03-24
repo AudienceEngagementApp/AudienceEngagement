@@ -1,6 +1,6 @@
 @import '~styles/colors';
 
-.teacher-home {
+.session-no-lesson {
   .top-bar {
     height: 14.55%;
     width: auto;
@@ -23,6 +23,7 @@
     }
     padding: 0px 5% 0px 5%;
   }
+
   .selection-collection {
     display: flex;
     flex-wrap: wrap;
@@ -43,7 +44,7 @@
           width: 175px;
           height: 56px;
         }
-        .edit-lesson {
+        .use-lesson {
           height: 175px;
           width: 175px;
           border-radius: 35px;
@@ -66,31 +67,15 @@
             line-height: 29px;
           }
         }
-        .new-lesson {
-          height: 175px;
-          width: 175px;
-          border-radius: 35px;
-          border: 2px dashed $primary-light-blue;
-          .inner-icon {
-            box-sizing: border-box;
-            height: 82px;
-            width: 82px;
-            -moz-border-radius: 50px;
-            -webkit-border-radius: 50px;
-            border-radius: 50px;
-            border: 2px solid $aux-light-blue;
-            font-size: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: $aux-light-blue;
-          }
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
       }
     }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .dynamic-show-session-no-lesson {
+    visibility: hidden;
+    clear: both;
+    display: none;
   }
 }

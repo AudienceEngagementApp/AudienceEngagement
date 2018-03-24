@@ -1,0 +1,211 @@
+@import '~styles/colors';
+
+.live-question {
+
+  .question-prompt {
+    margin-top: 66px;
+    color: $text-dark-gray;
+    font-family: Montserrat;
+    font-size: 64px;
+    letter-spacing: 2px;
+    line-height: 78px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .top-bar {
+    height: 14.55%;
+    width: auto;
+    background-color: $primary-light-blue;
+    color: $white;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 5px 16px 0 rgba(0,0,0,0.18);
+    h1 {
+      font-size: 48px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+      span {
+        margin-right: 10px;
+      }
+      svg {
+        font-size: 58px;
+      }
+    }
+    padding: 0px 5% 0px 5%;
+  }
+
+  .answer-choices {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 5vh;
+  }
+
+
+
+  .free-responses {
+    display: flex;
+    justify-content: center;
+    ul {
+      list-style: none;
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      li {
+        width: auto;
+        display: inline-block;
+        font-size: 30px;
+      }
+    }
+    margin-bottom: 40px;
+  }
+
+  .question-asking {
+    .response-bar {
+      margin-bottom: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .responses {
+        color: $text-dark-gray;
+        font-family: Montserrat;
+        font-size: 36px;
+        letter-spacing: 1px;
+        line-height: 44px;
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+      .submit {
+        margin-left: 20px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 27px;
+        height: 56px;
+        width: 256px;
+        border-radius: 100px;
+        background-color: #2895FF;
+        box-shadow: 0 9px 21px 0 rgba(40,150,255,0.25);
+      }
+    }
+
+    .bottom-border {
+      border-radius: 99% 99% 0 0 / 50%;
+      background-color: #2895FF;
+      color: white;
+      height: 13%;
+      width: 100%;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      font-size: 30px;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 20px;
+    }
+  }
+
+  .question-finished {
+    .background-drop {
+      height: 100vh;
+      position: absolute;
+      background-color: $primary-light-blue;
+      z-index: -5;
+      top: 0;
+      left: 0;
+      right:0;
+      bottom:0;
+    }
+    h1 {
+      width: 100%;
+      color: #FFFFFF;
+      font-family: Montserrat;
+      font-size: 72px;
+      letter-spacing: 2px;
+      line-height: 88px;
+      text-align: center;
+    }
+    h2 {
+      color: #FFFFFF;
+      font-family: Montserrat;
+      font-size: 48px;
+      letter-spacing: 1px;
+      line-height: 58px;
+      text-align: center;
+    }
+    color: $white;
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      .next-btn {
+        box-sizing: border-box;
+        border: 1px solid #2895FF;
+        border-radius: 100px;
+        background-color: #FFFFFF;
+        width: 20%;
+        color: #B3B3B3;
+        font-size: 1.2vw;
+        min-height: 50px;
+      }
+    }
+    .answer-text-box, .answer-box {
+      .answer-form {
+        display: flex;
+        justify-content: space-between;
+        .left-span {
+          margin-left: 40px;
+        }
+        .right-span {
+          font-weight: bold;
+          margin-right: 40px;
+        }
+      }
+      &.answer-1 {
+        .optional-overlay {
+          background-color: rgba(255,188,66,0.7);
+        }
+      }
+      &.answer-2 {
+        .optional-overlay {
+          background-color: rgba(255,89,100,0.7);
+        }
+      }
+      &.answer-3 {
+        .optional-overlay {
+          background-color: rgba(125,223,100,0.7);
+        }
+      }
+      &.answer-4 {
+        .optional-overlay {
+          background-color: rgba(255,231,76,0.7);
+        }
+      }
+      &.answer-0 {
+        border-color: #B3B3B3;
+        .option-label {
+          background-color: #B3B3B3;
+        }
+      }
+      background-color: $white;
+    }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .dynamic-show-live-question {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+}

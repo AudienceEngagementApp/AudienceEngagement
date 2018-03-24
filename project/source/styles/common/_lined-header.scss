@@ -1,0 +1,35 @@
+@import '~styles/colors';
+
+.lined-header {
+  min-width: 300px;
+  h3 {
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    color: $text-dark-gray;
+    font-family: Montserrat;
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 44px;
+  }
+  h3 span {
+    background: $white;
+    padding: 0 15px;
+    position: relative;
+    z-index: 1;
+  }
+  h3:before {
+    background: $text-dark-gray;
+    content: "";
+    display: inline-block;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    width: 70%;
+    margin: auto;
+  }
+}

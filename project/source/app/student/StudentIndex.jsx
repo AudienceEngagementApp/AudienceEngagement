@@ -9,6 +9,7 @@ import {type StoreState} from 'app/state/index'
 import {getSetLoginInfoCommand} from 'app/actions/LoginInfoAction'
 import {compose, type Dispatch} from 'redux'
 import {connect, type Connector} from 'react-redux'
+import withTracker from 'app/common/withTracker'
 
 import styles from 'styles/student/_student-base.scss'
 
@@ -38,15 +39,15 @@ class StudentIndex extends React.Component<Props>{
   render = (): React$Element<*> => {
     return (<div className='student'>
       <Switch>
-        <Route path='/student/session/:sessionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={(matchProps: SessionMatchProps) =>
+        <Route path='/student/session/:sessionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={withTracker((matchProps: SessionMatchProps) =>
           this.props.name ? (
             <Session {...this.props} sessionId={matchProps.match.params.sessionId}/>
           ) : (
             <JoinSession {...this.props} sessionId={matchProps.match.params.sessionId}/>
-          )} />
-        <Route path='/student' component={() => (
+          ))} />
+        <Route path='/student' component={withTracker(() => (
           <JoinSession {...this.props} onSubmit={this.goToSession}/>
-        )} />
+        ))} />
       </Switch>
     </div>)
   }

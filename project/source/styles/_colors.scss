@@ -4,6 +4,7 @@ $primary-light-blue: #2895FF;
 $primary-dark-blue: #227ED9;
 $text-dark-gray: #4A4A4A;
 $text-light-gray: #969696;
+$aux-light-blue: #5EB0FF;
 
 :export {
   white: $white;
@@ -12,4 +13,5 @@ $text-light-gray: #969696;
   primary-dark-blue: $primary-dark-blue;
   text-dark-gray: $text-dark-gray;
   text-light-gray: $text-light-gray;
+  aux-light-blue: $aux-light-blue;
 }

@@ -31,9 +31,6 @@ class Connect extends React.Component<Props>{
         <b>Go to {window.location.hostname + (window.location.port != 80 ? `:${window.location.port}` : '') + '/#/student'}</b> and enter Session <b>PIN: {thisPin}</b>
       </BigBanner>
       <div className="content">
-        <span className="total-joined">
-          Members joined: 16
-        </span>
         <button className="join-session-btn btn" onClick={this.props.onSubmit}>START</button>
       </div>
       <div className="image-row">

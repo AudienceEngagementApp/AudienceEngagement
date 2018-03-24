@@ -16,23 +16,26 @@ import {Error} from 'app/common/Error'
 import {getAddSessionCommand} from 'app/actions/SessionAction'
 import {type StoreState} from 'app/state/index'
 import {connect} from 'react-redux'
+import DragSortableList from 'react-drag-sortable'
 
 import styles from 'styles/teacher/lesson/_lesson.scss'
 
 type OwnProps = {
   lesson: Object,
   lessonId: string,
-  addQuestion: (question: string, type: number, answers: ?Array<string> | Object) => string,
+  history: Object,
+  addQuestion: (question: string, type: number, order: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
   removeQuestion: (questionId: string) => void,
   removeLesson: (lessonId: string) => void,
-  history: Object
+  setQuestionOrder: (questionId: string, index: number) => void,
+  setManyQuestionOrder: (Array<{questionId: string, order: number}>) => void,
 }
 
 type StateProps = {
 }
 
 type DispatchProps = {
-  addSession: (lessonId: ?string) => string
+  addSession: (lessonId: ?string) => string,
 }
 
 type Props = OwnProps & StateProps & DispatchProps
@@ -75,16 +78,30 @@ class Lesson extends React.Component<Props, State>{
     this.addQuestionClicked = this.addQuestionClicked.bind(this);
   }
 
+  elementsSorted = (sortedList) => {
+    this.props.setManyQuestionOrder(
+      sortedList
+        .map((element, index) => {
+          return ({questionId: element.id, order: index})
+        }).filter((element, index) =>
+          this.props.lesson.questions[element.questionId].order != index
+        )
+    )
+  }
+
   render = (): React$Element<*> => {
     if (this.props.lesson) {
-      const questionElements: Array<React$Node> = _.keys(this.props.lesson.questions).map((questionId: string) =>
-        <LessonQuestion
+      const dragableContent: Array<Object> = _.sortBy(_.keys(this.props.lesson.questions), (questionId) => this.props.lesson.questions[questionId].order)
+      .map((questionId: string) => ({
+        content: <LessonQuestion
           key={questionId}
           onClick={() => this.editQuestion(questionId)}
           onRemove={() => this.removeQuestion(questionId)}
           onCopy={() => this.copyQuestion(questionId)}
           question={this.props.lesson.questions[questionId]}
-      />)
+        />,
+        id: questionId
+      }))
       return (
         <div className={classnames('lesson')} onClick={this.clearDropdowns}>
           <span className={classnames('dynamic-justify')} >
@@ -111,7 +128,7 @@ class Lesson extends React.Component<Props, State>{
               <Dropdown anchor={
                 <h2>
                   <span className={classnames('dynamic-show')}>
-                    {questionElements.length} {'Question' + (questionElements.length > 1 ? 's' : '')}
+                    {dragableContent.length} {'Question' + (dragableContent.length > 1 ? 's' : '')}
                   </span>
                   <PlusCircle onClick={this.addQuestionClicked} />
                 </h2>
@@ -122,7 +139,7 @@ class Lesson extends React.Component<Props, State>{
               </Dropdown>
             </div>
           </span>
-          {questionElements}
+          <DragSortableList items={dragableContent} moveTransitionDuration={0.3} onSort={this.elementsSorted} type="vertical"/>
         </div>
       )
     } else {
@@ -130,10 +147,20 @@ class Lesson extends React.Component<Props, State>{
     }
   }
 
+  highesQuestionIndex = (): number => {
+    if (_.keys(this.props.lesson.questions).length) {
+      const highestQuestionId = _.max(_.keys(this.props.lesson.questions), (questionId) => this.props.lesson.questions[questionId].order)
+      const toReturn = this.props.lesson.questions[highestQuestionId].order
+      return toReturn
+    } else {
+      return -1
+    }
+  }
+
   addQuestion = (type: QuestionType): void => {
     const numType: number = questionTypeToNumber(type)
     if (numType != -1) {
-      this.props.addQuestion('New question', numType)
+      this.props.addQuestion('New question', numType, this.highesQuestionIndex() + 1)
     }
   }
 
@@ -143,7 +170,7 @@ class Lesson extends React.Component<Props, State>{
 
   copyQuestion = (questionId: string): void => {
     const question: Object = this.props.lesson.questions[questionId]
-    this.props.addQuestion(question.question, question.type, _.values(question.answers))
+    this.props.addQuestion(question.question, question.type, this.highesQuestionIndex() + 1, _.values(question.answers), question.correct)
   }
 
   backPressed = (): void => {

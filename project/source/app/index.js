@@ -5,6 +5,9 @@ import {AppContainer} from 'app/AppContainer'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {configureStore} from 'app/state/ConfigureStore'
+import ReactGA from 'react-ga'
+
+ReactGA.initialize('UA-111747059-2')
 
 const store = configureStore()
 

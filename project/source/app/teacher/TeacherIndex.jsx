@@ -7,23 +7,24 @@ import {TeacherHome} from 'app/teacher/home/TeacherHome'
 import {EditQuestion} from 'app/teacher/question/EditQuestion'
 import {Live} from 'app/teacher/live/Live'
 import {compose, type Dispatch} from 'redux'
+import withTracker from 'app/common/withTracker'
 
 export class TeacherIndex extends React.Component<*>{
 
   render = (): React$Element<*> => (
     <Switch>
-      <Route path='/teacher/lesson/:lessonId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/question/:questionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={
+      <Route path='/teacher/lesson/:lessonId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/question/:questionId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={withTracker(
         EditQuestionFromURL
-      } />
-      <Route path='/teacher/lesson/:lessonId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})' component={
-        LessonFromURL
-      } />
-      <Route path='/teacher/live' component={() => (
+      )} />
+      <Route path='/teacher/lesson/:lessonId([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})'
+        component={withTracker(LessonFromURL)}
+      />
+      <Route path='/teacher/live' component={withTracker(() => (
         <Live {...this.props}/>
-      )} />
-      <Route path='/teacher' component={() => (
+      ))} />
+      <Route path='/teacher' component={withTracker(() => (
         <TeacherHome  {...this.props}/>
-      )} />
+      ))} />
     </Switch>
   )
 }
