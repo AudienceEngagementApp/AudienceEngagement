@@ -31,13 +31,6 @@ To start your *Audience Engagement* app:
 
 ### Contributors
 
-1. Adam Charlton
-2. Alise Wiseman
-3. Dagan Holbrook
-4. Kathryn Rasmussen
-5. Mitchell Clements
-6. Neil Spackman
-7. Rachel Bengochea
 8. Scott Leland Crossen  
 <http://scottcrossen42.com>  
 <scottcrossen42@gmail.com>
