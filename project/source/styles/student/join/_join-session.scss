@@ -75,3 +75,11 @@
     line-height: 21px;
   }
 }
+
+@media screen and (max-width: 1300px) {
+  .teacher-link {
+    visibility: hidden;
+    clear: both;
+    display: none;
+  }
+}

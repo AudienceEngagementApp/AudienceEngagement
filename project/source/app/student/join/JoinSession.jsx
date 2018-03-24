@@ -56,7 +56,9 @@ export class JoinSession extends React.Component<Props, State> {
       />
       <button onClick={this.onSubmitPressed}>SUBMIT</button>
     </div>)}
-    <Link to='/teacher'><div className='teacher-account'>TEACHER ACCOUNT</div></Link>
+    <div className='teacher-link'>
+      <Link to='/teacher'><div className='teacher-account'>TEACHER ACCOUNT</div></Link>
+    </div>
   </div>)
 
   onSubmitPressed = () => {
