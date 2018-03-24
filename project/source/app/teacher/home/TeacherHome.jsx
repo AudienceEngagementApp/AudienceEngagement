@@ -13,6 +13,7 @@ import {getAddSessionCommand} from 'app/actions/SessionAction'
 import classnames from 'classnames'
 import {type StoreState} from 'app/state/index'
 import {LinedHeader} from 'app/common/LinedHeader'
+import withTracker from 'app/common/withTracker'
 
 import styles from 'styles/teacher/home/_teacher-home.scss'
 
@@ -64,9 +65,9 @@ class TeacherHome extends React.Component<Props>{
           </Link>
         </li>
       </ul>
-      <Route path='/teacher/newlesson' component={() => (<div>
+      <Route path='/teacher/newlesson' component={withTracker(() => (<div>
         <NewLessonModal {...this.props} newLesson={this.newLesson}/>
-      </div>)} />
+      </div>))} />
     </div>)
   }
 

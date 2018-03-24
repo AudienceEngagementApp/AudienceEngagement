@@ -8,6 +8,7 @@ import {BigBanner} from 'app/common/BigBanner'
 import {Test} from 'app/Test'
 import {type Store} from 'redux'
 import {Loading} from 'app/common/Loading'
+import withTracker from 'app/common/withTracker'
 
 import styles from 'styles/_app.scss'
 
@@ -15,7 +16,7 @@ const display_seperate_home_page = false
 
 export const App = (): React$Element<*> => (
   <Switch>
-    <Route exact path='/' component={() => display_seperate_home_page ? (
+    <Route exact path='/' component={withTracker(() => display_seperate_home_page ? (
       <div className='app-index'>
         <div className='container'>
           <BigBanner>
@@ -34,12 +35,12 @@ export const App = (): React$Element<*> => (
     ) : (
       <Redirect to='/student' />
     )
-    } />
-    <Route path='/teacher' component={TeacherIndex} />
-    <Route path='/student' component={StudentIndex} />
-    <Route path='/test' component={() =>
+    )} />
+    <Route path='/teacher' component={withTracker(TeacherIndex)} />
+    <Route path='/student' component={withTracker(StudentIndex)} />
+    <Route path='/test' component={withTracker(() =>
       <Test />
-    } />
+    )} />
   </Switch>
 )
 
