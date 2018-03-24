@@ -26,7 +26,7 @@ type State = {
   answerChoices?: (Array<string> | Object),
 }
 
-export class Question extends React.Component<Props, State> {
+export class EditQuestionDelegate extends React.Component<Props, State> {
   static defaultProps = {
     answerChoices: [],
     correctAnswer: ''
@@ -51,6 +51,7 @@ export class Question extends React.Component<Props, State> {
         editable={false}
         textChanged={(newText) => {}}
         onClick={() => this.answerAdded()}
+        letter={'+'}
       />) : answerElements
     if (answerElements) {
       return (
@@ -80,7 +81,7 @@ export class Question extends React.Component<Props, State> {
                 <TextInput className='correct-answer-box' placeholder='Type Letter' value={this.state.correctAnswer} textChanged={this.correctChanged}/>
               </span>
             }
-            <button type='submit' className='back-btn' onClick={this.saveAndBack}><b>SAVE TO LESSON</b></button>
+            <button type='submit' className='back-btn' onClick={this.saveAndBack}><b>SUBMIT</b></button>
           </div>
         </div>
       )

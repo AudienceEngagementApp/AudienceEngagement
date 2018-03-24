@@ -10,6 +10,7 @@ type Props = {
   styleClass: number,
   letter?: string,
   answer: string,
+  answerPercentage?: ?string,
   editable: boolean,
   onClick?: () => void,
   textChanged: (string) => void,
@@ -17,25 +18,30 @@ type Props = {
 
 export class AnswerBox extends React.Component<Props> {
   render = (): React$Element<*> => {
-    const {styleClass, letter, answer, editable, onClick, ...rest} = this.props
-    const optionLabel = (styleClass === 0) ? '+' : letter
+    const {styleClass, letter, answer, editable, onClick, answerPercentage, ...rest} = this.props
     return (
       <div
         className={classnames((editable || styleClass === 0) ? 'answer-text-box' : 'answer-box', `answer-${styleClass}`)}
         onClick={onClick}
       >
-        {optionLabel ? <div className={classnames('option-label')}>
-          <label>{optionLabel}</label>
-        </div> : null}
-        {editable ?
-        <TextInput
-          className={classnames('answer-form')}
-          placeholder='Type answer'
-          value={answer}
-          {...rest}
-        /> :
-        <label className={classnames('answer-form')}>{answer}</label>}
+        <div className={'optional-overlay'} >
+          {letter ? <div className={classnames('option-label')}>
+            <label>{letter}</label>
+          </div> : null}
+          {editable ?
+          <TextInput
+            className={classnames('answer-form')}
+            placeholder='Type answer'
+            value={answer}
+            {...rest}
+          /> :
+          (answerPercentage ? <label className={classnames('answer-form')}>
+            <span className='left-span'>{answer}</span>
+            <span className='right-span'>{answerPercentage}</span>
+          </label>
+        : <label className={classnames('answer-form')}>{answer}</label>) }
       </div>
+    </div>
     )
   }
 }

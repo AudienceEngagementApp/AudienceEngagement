@@ -4,7 +4,7 @@ import {AnswerBox} from 'app/teacher/question/AnswerBox'
 import {compose, type Dispatch} from 'redux'
 import {Error} from 'app/common/Error'
 import {lessonConnect} from 'app/common/connectors/LessonConnect'
-import {Question} from 'app/teacher/question/Question'
+import {EditQuestionDelegate} from 'app/teacher/question/EditQuestionDelegate'
 import {withRouter} from 'react-router'
 import React, {Component, PropTypes} from 'react'
 
@@ -29,7 +29,7 @@ class EditQuestion extends React.Component<Props> {
     ) {
       const question: Object = this.props.lesson.questions[this.props.questionId]
       if (question.type == 0) {
-        return <Question
+        return <EditQuestionDelegate
           question={question.question}
           answerChoices={question.answers}
           correctAnswer={question.correct}
@@ -40,7 +40,7 @@ class EditQuestion extends React.Component<Props> {
           noCorrectAnswer={false}
         />
       } else if (question.type == 1) {
-        return <Question
+        return <EditQuestionDelegate
           question={question.question}
           answerChoices={{T: 'True', F: 'False'}}
           correctAnswer={question.correct == 1 ? 'True' : 'False'}
@@ -51,7 +51,7 @@ class EditQuestion extends React.Component<Props> {
           noCorrectAnswer={false}
         />
       } else if (question.type == 2) {
-        return <Question
+        return <EditQuestionDelegate
           question={question.question}
           questionEditable={true}
           answersEditable={false}

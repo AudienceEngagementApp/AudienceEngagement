@@ -7,7 +7,7 @@ import {firebaseConnect, isLoaded, isEmpty, toJS, actionTypes} from 'react-redux
 import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import {Loading} from 'app/common/Loading'
-import {getSetStateCommand, getAnswerQuestionCommand, getSetLessonCommand, getSetQuestionCommand} from 'app/actions/SessionAction'
+import {getSetStateCommand, getAnswerQuestionCommand, getResetSessionCommand, getSetLessonCommand, getSetActiveQuestionCommand} from 'app/actions/SessionAction'
 
 type OwnProps = {
   sessionId: string,
@@ -20,7 +20,9 @@ type StateProps = {
 type DispatchProps = {
   setState: (state: number) => void,
   answerQuestion: (questionId: string, answer: (string | number)) => void,
-  setLesson: (lessonId: string, questionId: ?string) => void
+  setLesson: (lessonId: string, questionId: ?string) => void,
+  setActiveQuestion: (questionId: string) => void,
+  resetSession: () => void,
 }
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -39,7 +41,8 @@ export const sessionConnect = <A>(Component: React.Component<A & StateProps & Di
     setState: getSetStateCommand(dispatch, ownProps),
     answerQuestion: getAnswerQuestionCommand(dispatch, ownProps),
     setLesson: getSetLessonCommand(dispatch, ownProps),
-    setQuestion: getSetQuestionCommand(dispatch, ownProps),
+    setActiveQuestion: getSetActiveQuestionCommand(dispatch, ownProps),
+    resetSession: getResetSessionCommand(dispatch, ownProps),
   })
   const composedComponent = compose(
     firebaseConnect((ownProps: OwnProps): Array<string> => {

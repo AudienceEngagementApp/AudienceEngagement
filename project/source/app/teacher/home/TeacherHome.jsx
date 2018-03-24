@@ -12,6 +12,7 @@ import {NewLessonModal} from 'app/teacher/home/NewLessonModal'
 import {getAddSessionCommand} from 'app/actions/SessionAction'
 import classnames from 'classnames'
 import {type StoreState} from 'app/state/index'
+import {LinedHeader} from 'app/common/LinedHeader'
 
 import styles from 'styles/teacher/home/_teacher-home.scss'
 
@@ -51,7 +52,7 @@ class TeacherHome extends React.Component<Props>{
           <PlayCircle onClick={this.liveSessionPressed} />
         </h1>
       </div>
-      <div className={classnames('lined-header')}><h3><span>Lessons</span></h3></div>
+      <LinedHeader>Lessons</LinedHeader>
       <ul className={'selection-collection'}>
         {lessonElements}
         <li>
@@ -71,7 +72,7 @@ class TeacherHome extends React.Component<Props>{
 
   newLesson = (lessonName: string): void => {
     if (lessonName) {
-      this.props.history.push(`/teacher/lesson/${this.props.addLesson(lessonName)}`)
+      this.props.history.replace(`/teacher/lesson/${this.props.addLesson(lessonName)}`)
     }
   }
 

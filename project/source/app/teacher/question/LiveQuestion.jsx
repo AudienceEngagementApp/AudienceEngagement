@@ -3,7 +3,8 @@
 import React from 'react'
 import {Error} from 'app/common/Error'
 import {compose} from 'redux'
-import {Question} from 'app/teacher/question/Question'
+import {LiveQuestionDelegate} from 'app/teacher/question/LiveQuestionDelegate'
+import _ from 'underscore'
 
 type Props = {
   lesson?: {
@@ -12,8 +13,10 @@ type Props = {
   session: {
     question: string,
   },
-  isActive: boolean,
   onFinish: void => null,
+  pin: string,
+  setState: number => void,
+  setQuestion: string => void,
 }
 
 export class LiveQuestion extends React.Component<*>{
@@ -21,37 +24,43 @@ export class LiveQuestion extends React.Component<*>{
   render = (): React$Element<*> => {
     if (this.props.lesson &&
       this.props.lesson.questions[this.props.session.question] &&
-      this.props.lesson.questions[this.props.session.question].type &&
+      (this.props.lesson.questions[this.props.session.question].type ||
+      this.props.lesson.questions[this.props.session.question].type === 0) &&
       this.props.lesson.questions[this.props.session.question].question
     ) {
       const question = this.props.lesson.questions[this.props.session.question]
+      const state = this.props.session.state
+      const answers = (this.props.session.answers && this.props.session.answers[this.props.session.question]) ? this.props.session.answers[this.props.session.question] : {}
       if (question.type == 0) {
-        return <Question
+        return <LiveQuestionDelegate
           question={question.question}
           answerChoices={question.answers}
           correctAnswer={question.correct}
-          questionEditable={false}
-          answersEditable={false}
           onFinish={this.props.onFinish}
-          noCorrectAnswer={true}
+          state={state}
+          responses={_.values(answers)}
+          pin={this.props.pin}
+          {...this.props}
         />
       } else if (question.type == 1) {
-        return <Question
+        return <LiveQuestionDelegate
           question={question.question}
           answerChoices={{T: 'True', F: 'False'}}
           correctAnswer={question.correct == 1 ? 'True' : 'False'}
-          questionEditable={false}
-          answersEditable={false}
           onFinish={this.props.onFinish}
-          noCorrectAnswer={true}
+          state={state}
+          responses={_.values(answers)}
+          pin={this.props.pin}
+          {...this.props}
         />
       } else if (question.type == 2) {
-        return <Question
+        return <LiveQuestionDelegate
           question={question.question}
-          questionEditable={false}
-          answersEditable={false}
           onFinish={this.props.onFinish}
-          noCorrectAnswer={true}
+          state={state}
+          responses={_.values(answers)}
+          pin={this.props.pin}
+          {...this.props}
         />
       } else {
         return <Error message='Incorrect question type' />

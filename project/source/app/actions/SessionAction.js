@@ -45,12 +45,19 @@ export const getSetLessonCommand = (dispatch: Dispatch, ownProps: Object): ((str
     if (questionId) {
       ownProps.firebase.set(`sessions/${ownProps.sessionId}/question`, questionId)
     }
-    ownProps.firebase.set(`sessions/${ownProps.sessionId}/state`, 1)
+    ownProps.firebase.set(`sessions/${ownProps.sessionId}/state`, 0)
   }
 }
 
-export const getSetQuestionCommand = (dispatch: Dispatch, ownProps: Object): ((string) => void) => {
+export const getSetActiveQuestionCommand = (dispatch: Dispatch, ownProps: Object): ((string) => void) => {
   return (questionId: string): void => {
     ownProps.firebase.set(`sessions/${ownProps.sessionId}/question`, questionId)
+    ownProps.firebase.set(`sessions/${ownProps.sessionId}/state`, 0)
+  }
+}
+
+export const getResetSessionCommand = (dispatch: Dispatch, ownProps: Object): (void => void) => {
+  return (): void => {
+    ownProps.firebase.set(`sessions/${ownProps.sessionId}`, {state: 2})
   }
 }

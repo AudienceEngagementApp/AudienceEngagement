@@ -19,8 +19,8 @@ type State = {
 type Props = StateProps
 
 const customStyles = {
-  content : {
-    bottom                : 'unset',
+  content: {
+    bottom: 'unset',
   }
 };
 
