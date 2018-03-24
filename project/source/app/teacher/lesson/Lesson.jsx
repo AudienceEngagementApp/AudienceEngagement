@@ -148,9 +148,13 @@ class Lesson extends React.Component<Props, State>{
   }
 
   highesQuestionIndex = (): number => {
-    const highestQuestionId = _.max(_.keys(this.props.lesson.questions), (questionId) => this.props.lesson.questions[questionId].order)
-    const toReturn = this.props.lesson.questions[highestQuestionId].order
-    return toReturn ? toReturn : -1
+    if (_.keys(this.props.lesson.questions).length) {
+      const highestQuestionId = _.max(_.keys(this.props.lesson.questions), (questionId) => this.props.lesson.questions[questionId].order)
+      const toReturn = this.props.lesson.questions[highestQuestionId].order
+      return toReturn
+    } else {
+      return -1
+    }
   }
 
   addQuestion = (type: QuestionType): void => {

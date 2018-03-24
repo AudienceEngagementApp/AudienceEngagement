@@ -44,6 +44,7 @@
     justify-content: space-between;
     padding: 0px 5% 0px 5%;
     .dropdown-content {
+      z-index: 1;
       h2 {
         padding-left: 10px;
         padding-right: 10px;
@@ -62,6 +63,10 @@
       }
       margin-left: -10px
     }
+  }
+  .draggable {
+    opacity: 100;
+    z-index: 0;
   }
   .question {
     display: flex;
