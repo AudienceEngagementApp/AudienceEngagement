@@ -16,7 +16,7 @@ type Props = {
   questionId: string,
   onFinish: void => null,
   history: Object,
-  setQuestion: (questionId: string, question: string, type: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
+  setQuestion: (questionId: string, question: string, type: number, order: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
 }
 
 class EditQuestion extends React.Component<Props> {
@@ -28,6 +28,10 @@ class EditQuestion extends React.Component<Props> {
       this.props.lesson.questions[this.props.questionId]
     ) {
       const question: Object = this.props.lesson.questions[this.props.questionId]
+      const onFinish = (): void => {
+        this.props.history.goBack()
+        //window.location.href = `/#/teacher/lesson/${this.props.lessonId}`
+      }
       if (question.type == 0) {
         return <EditQuestionDelegate
           question={question.question}
@@ -35,8 +39,8 @@ class EditQuestion extends React.Component<Props> {
           correctAnswer={question.correct}
           questionEditable={true}
           answersEditable={true}
-          setQuestion={(question: string, answers: ?Array<string> | Object, correct: ?string | number) => this.props.setQuestion(this.props.questionId, question, 0, answers, correct)}
-          onFinish={this.props.history.goBack}
+          setQuestion={(questionPrompt: string, answers: ?Array<string> | Object, correct: ?string | number) => this.props.setQuestion(this.props.questionId, questionPrompt, 0, question.order, answers, correct)}
+          onFinish={onFinish}
           noCorrectAnswer={false}
         />
       } else if (question.type == 1) {
@@ -46,8 +50,8 @@ class EditQuestion extends React.Component<Props> {
           correctAnswer={question.correct == 1 ? 'True' : 'False'}
           questionEditable={true}
           answersEditable={false}
-          setQuestion={(question: string, answers: ?Array<string> | Object, correct: ?string | number) => this.props.setQuestion(this.props.questionId, question, 1, answers, correct)}
-          onFinish={this.props.history.goBack}
+          setQuestion={(questionPrompt: string, answers: ?Array<string> | Object, correct: ?string | number) => this.props.setQuestion(this.props.questionId, questionPrompt, 1, question.order, answers, correct)}
+          onFinish={onFinish}
           noCorrectAnswer={false}
         />
       } else if (question.type == 2) {
@@ -55,8 +59,8 @@ class EditQuestion extends React.Component<Props> {
           question={question.question}
           questionEditable={true}
           answersEditable={false}
-          setQuestion={(question: string, answers: ?Array<string> | Object, correct: ?string | number) => this.props.setQuestion(this.props.questionId, question, 2, answers, correct)}
-          onFinish={this.props.history.goBack}
+          setQuestion={(questionPrompt: string, answers: ?Array<string> | Object, correct: ?string | number) => this.props.setQuestion(this.props.questionId, questionPrompt, 2, question.order, answers, correct)}
+          onFinish={onFinish}
           noCorrectAnswer={true}
         />
       } else {

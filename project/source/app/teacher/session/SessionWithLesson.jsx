@@ -35,11 +35,12 @@ class SessionWithLesson extends React.Component<Props>{
 
   nextQuestion = () => {
     const questions = this.props.lesson.questions
-    const nextIndex = _.keys(questions).indexOf(this.props.session.question) + 1
-    if (nextIndex >= _.keys(questions).length) {
+    const sortedKeys = _.sortBy(_.keys(questions), (questionId) => questions[questionId].order)
+    const nextIndex = sortedKeys.indexOf(this.props.session.question) + 1
+    if (nextIndex >= sortedKeys.length) {
       this.props.resetSession()
     } else {
-      this.props.setActiveQuestion(_.keys(questions)[nextIndex])
+      this.props.setActiveQuestion(sortedKeys[nextIndex])
     }
 
   }
@@ -55,7 +56,9 @@ class SessionWithLesson extends React.Component<Props>{
       console.log('Question feild blank. Setting')
       if (_.keys(nextProps.lesson.questions).length > 0) {
         console.log('Found valid question')
-        nextProps.setActiveQuestion(_.keys(nextProps.lesson.questions)[0])
+        const questions = nextProps.lesson.questions
+        const sortedKeys = _.sortBy(_.keys(questions), (questionId) => questions[questionId].order)
+        nextProps.setActiveQuestion(sortedKeys[0])
       }
     }
   }

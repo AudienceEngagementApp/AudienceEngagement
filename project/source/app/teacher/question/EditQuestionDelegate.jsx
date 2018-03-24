@@ -17,7 +17,7 @@ type Props = {
   answersEditable: boolean,
   noCorrectAnswer: boolean,
   setQuestion?: (question: string, answers: ?Array<string> | Object, correct: ?string | number) => string,
-  onFinish: void => null
+  onFinish: () => void
 }
 
 type State = {

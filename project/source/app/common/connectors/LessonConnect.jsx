@@ -8,7 +8,7 @@ import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import {Loading} from 'app/common/Loading'
 import uuidv4 from 'uuid/v4'
-import {getAddQuestionCommand, getAddQuestionAnswerCommand, getRemoveQuestionCommand, getRemoveLessonCommand, getSetQuestionCommand} from 'app/actions/LessonAction'
+import {getAddQuestionCommand, getSetManyQuestionOrderCommand, getSetQuestionOrderCommand, getAddQuestionAnswerCommand, getRemoveQuestionCommand, getRemoveLessonCommand, getSetQuestionCommand} from 'app/actions/LessonAction'
 
 type OwnProps = {
   lessonId: string,
@@ -18,10 +18,13 @@ type StateProps = {
   lesson?: Object,
 }
 type DispatchProps = {
-  addQuestion: (question: string, type: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
+  addQuestion: (question: string, type: number, order: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
   addQuestionAnswer: (questionId: string, answerLetter: string, answerChoice: string) => void,
   removeQuestion: (questionId: string) => void,
   removeLesson: (lessonId: string) => void,
+  setQuestion: (questionId: string, question: string, type: number, order: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
+  setQuestionOrder: (questionId: string, order: number) => void,
+  setManyQuestionOrder: (Array<{questionId: string, order: number}>) => void,
 }
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -41,7 +44,9 @@ export const lessonConnect = <A>(Component: React.Component<A & StateProps & Dis
     addQuestionAnswer: getAddQuestionAnswerCommand(dispatch, ownProps),
     removeQuestion: getRemoveQuestionCommand(dispatch, ownProps),
     removeLesson: getRemoveLessonCommand(dispatch, ownProps),
-    setQuestion: getSetQuestionCommand(dispatch, ownProps)
+    setQuestion: getSetQuestionCommand(dispatch, ownProps),
+    setQuestionOrder: getSetQuestionOrderCommand(dispatch, ownProps),
+    setManyQuestionOrder: getSetManyQuestionOrderCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
     firebaseConnect((ownProps: OwnProps): Array<string> => {

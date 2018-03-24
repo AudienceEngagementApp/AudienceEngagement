@@ -79,7 +79,7 @@
         "questions": {
           "$question": {
             // Question must be UUID and have question and type
-        		".validate": "newData.hasChildren(['question','type'])
+        		".validate": "newData.hasChildren(['question','type', 'order'])
             	&& (  (newData.child('type').val() == 0 && (!newData.hasChild('answers') || newData.hasChild('correct')))
                  || (newData.child('type').val() == 1 && newData.hasChild('correct'))
                  || (newData.child('type').val() == 2) )
@@ -101,6 +101,9 @@
                 // Enforce name is a letter
                 ".validate": "newData.isString() && newData.val().length < 128 && $choice.matches(/^[A-Z]$/)"
               }
+            },
+            "order": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() % 1 === 0.0"
             },
             "$other": {
               ".validate": false
