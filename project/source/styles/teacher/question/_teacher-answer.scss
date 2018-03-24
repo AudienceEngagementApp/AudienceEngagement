@@ -1,3 +1,5 @@
+@import '~styles/colors';
+
 .answer-text-box {
   border: 1.5px solid;
   border-radius: 10px;
@@ -39,28 +41,35 @@
   }
 }
 
-.answer-0 {
+.answer-1 {
   border-color: #FFBC42;
   .option-label {
     background-color: #FFBC42;
   }
 }
-.answer-1 {
+.answer-2 {
   border-color: #FF5964;
   .option-label {
     background-color: #FF5964;
   }
 }
-.answer-2 {
+.answer-3 {
   border-color: #7DDF64;
   .option-label {
     background-color: #7DDF64;
   }
 }
-.answer-3 {
+.answer-4 {
   border-color: #FFE74C;
   .option-label {
     background-color: #FFE74C;
+  }
+}
+
+.answer-0 {
+  border-color: $primary-light-blue;
+  .option-label {
+    background-color: $primary-light-blue;
   }
 }
 

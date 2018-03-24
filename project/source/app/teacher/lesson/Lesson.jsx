@@ -22,7 +22,7 @@ import styles from 'styles/teacher/lesson/_lesson.scss'
 type OwnProps = {
   lesson: Object,
   lessonId: string,
-  addQuestion: (question: string, type: number, answers: ?Array<string> | Object) => string,
+  addQuestion: (question: string, type: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
   removeQuestion: (questionId: string) => void,
   removeLesson: (lessonId: string) => void,
   history: Object
@@ -143,7 +143,7 @@ class Lesson extends React.Component<Props, State>{
 
   copyQuestion = (questionId: string): void => {
     const question: Object = this.props.lesson.questions[questionId]
-    this.props.addQuestion(question.question, question.type, _.values(question.answers))
+    this.props.addQuestion(question.question, question.type, _.values(question.answers), question.correct)
   }
 
   backPressed = (): void => {

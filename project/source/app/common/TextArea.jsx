@@ -21,7 +21,6 @@ export class TextArea extends React.Component<*>{
   }
 
   textEntered = (event: SyntheticEvent<*>): void => {
-    console.log("Flag 1")
     const target = event.target
     if (target instanceof HTMLTextAreaElement) {
       this.props.textChanged(target.value)

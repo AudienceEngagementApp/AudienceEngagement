@@ -8,7 +8,7 @@ import {type StoreState} from 'app/state/index'
 import _ from 'underscore'
 import {Loading} from 'app/common/Loading'
 import uuidv4 from 'uuid/v4'
-import {getAddQuestionCommand, getAddQuestionAnswerCommand, getRemoveQuestionCommand, getRemoveLessonCommand} from 'app/actions/LessonAction'
+import {getAddQuestionCommand, getAddQuestionAnswerCommand, getRemoveQuestionCommand, getRemoveLessonCommand, getSetQuestionCommand} from 'app/actions/LessonAction'
 
 type OwnProps = {
   lessonId: string,
@@ -18,7 +18,7 @@ type StateProps = {
   lesson?: Object,
 }
 type DispatchProps = {
-  addQuestion: (question: string, type: number, answers: ?Array<string> | Object) => string,
+  addQuestion: (question: string, type: number, answers: ?Array<string> | Object, correct: ?string | number) => string,
   addQuestionAnswer: (questionId: string, answerLetter: string, answerChoice: string) => void,
   removeQuestion: (questionId: string) => void,
   removeLesson: (lessonId: string) => void,
@@ -40,7 +40,8 @@ export const lessonConnect = <A>(Component: React.Component<A & StateProps & Dis
     addQuestion: getAddQuestionCommand(dispatch, ownProps),
     addQuestionAnswer: getAddQuestionAnswerCommand(dispatch, ownProps),
     removeQuestion: getRemoveQuestionCommand(dispatch, ownProps),
-    removeLesson: getRemoveLessonCommand(dispatch, ownProps)
+    removeLesson: getRemoveLessonCommand(dispatch, ownProps),
+    setQuestion: getSetQuestionCommand(dispatch, ownProps)
   })
   const composedComponent = compose(
     firebaseConnect((ownProps: OwnProps): Array<string> => {

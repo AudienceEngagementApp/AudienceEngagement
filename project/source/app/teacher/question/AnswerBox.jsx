@@ -11,16 +11,21 @@ type Props = {
   letter?: string,
   answer: string,
   editable: boolean,
+  onClick?: () => void,
   textChanged: (string) => void,
 }
 
 export class AnswerBox extends React.Component<Props> {
   render = (): React$Element<*> => {
-    const {styleClass, letter, answer, editable, ...rest} = this.props
+    const {styleClass, letter, answer, editable, onClick, ...rest} = this.props
+    const optionLabel = (styleClass === 0) ? '+' : letter
     return (
-      <div className={classnames(editable ? 'answer-text-box' : 'answer-box', `answer-${styleClass}`)}>
-        {letter ? <div className={classnames('option-label')}>
-          <label>{letter}</label>
+      <div
+        className={classnames((editable || styleClass === 0) ? 'answer-text-box' : 'answer-box', `answer-${styleClass}`)}
+        onClick={onClick}
+      >
+        {optionLabel ? <div className={classnames('option-label')}>
+          <label>{optionLabel}</label>
         </div> : null}
         {editable ?
         <TextInput

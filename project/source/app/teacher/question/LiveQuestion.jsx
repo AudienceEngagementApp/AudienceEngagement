@@ -12,7 +12,8 @@ type Props = {
   session: {
     question: string,
   },
-  isActive: boolean
+  isActive: boolean,
+  onFinish: void => null,
 }
 
 export class LiveQuestion extends React.Component<*>{
@@ -31,6 +32,8 @@ export class LiveQuestion extends React.Component<*>{
           correctAnswer={question.correct}
           questionEditable={false}
           answersEditable={false}
+          onFinish={this.props.onFinish}
+          noCorrectAnswer={true}
         />
       } else if (question.type == 1) {
         return <Question
@@ -39,12 +42,16 @@ export class LiveQuestion extends React.Component<*>{
           correctAnswer={question.correct == 1 ? 'True' : 'False'}
           questionEditable={false}
           answersEditable={false}
+          onFinish={this.props.onFinish}
+          noCorrectAnswer={true}
         />
       } else if (question.type == 2) {
         return <Question
           question={question.question}
           questionEditable={false}
           answersEditable={false}
+          onFinish={this.props.onFinish}
+          noCorrectAnswer={true}
         />
       } else {
         return <Error message='Incorrect question type' />
