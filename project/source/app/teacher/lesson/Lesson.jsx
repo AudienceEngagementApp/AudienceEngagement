@@ -16,6 +16,7 @@ import {Error} from 'app/common/Error'
 import {getAddSessionCommand} from 'app/actions/SessionAction'
 import {type StoreState} from 'app/state/index'
 import {connect} from 'react-redux'
+import DragSortableList from 'react-drag-sortable'
 
 import styles from 'styles/teacher/lesson/_lesson.scss'
 
@@ -75,6 +76,11 @@ class Lesson extends React.Component<Props, State>{
     this.addQuestionClicked = this.addQuestionClicked.bind(this);
   }
 
+
+  elementsSorted = (sortedList) => {
+    console.log("sortedList", sortedList);
+  }
+
   render = (): React$Element<*> => {
     if (this.props.lesson) {
       const questionElements: Array<React$Node> = _.keys(this.props.lesson.questions).map((questionId: string) =>
@@ -85,6 +91,7 @@ class Lesson extends React.Component<Props, State>{
           onCopy={() => this.copyQuestion(questionId)}
           question={this.props.lesson.questions[questionId]}
       />)
+      const dragableContent: Array<Object> = questionElements.map((element: React$Node) => ({content: element}))
       return (
         <div className={classnames('lesson')} onClick={this.clearDropdowns}>
           <span className={classnames('dynamic-justify')} >
@@ -122,7 +129,7 @@ class Lesson extends React.Component<Props, State>{
               </Dropdown>
             </div>
           </span>
-          {questionElements}
+          <DragSortableList items={dragableContent} moveTransitionDuration={0.3} onSort={this.elementsSorted} type="vertical"/>
         </div>
       )
     } else {
