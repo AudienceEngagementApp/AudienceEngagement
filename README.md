@@ -32,5 +32,5 @@ To start your *Audience Engagement* app:
 ### Contributors
 
 8. Scott Leland Crossen  
-<http://scottcrossen42.com>  
+<http://scottcrossen.com>  
 <scottcrossen42@gmail.com>
