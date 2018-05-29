@@ -1,4 +1,4 @@
-# AudienceEngagement
+# Audience Engagement
 
 A web app designed to facilitate audience participation.
 
@@ -25,9 +25,7 @@ To start your *Audience Engagement* app:
 
 ### Helpful Links
 
-[Repository](https://github.com/AudienceEngagementApp/AudienceEngagement)
-
-[Wiki](https://github.com/AudienceEngagementApp/AudienceEngagement/wiki)
+[Project](http://class.scottcrossen.com)
 
 ### Contributors
 
