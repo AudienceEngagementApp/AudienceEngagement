@@ -30,7 +30,7 @@
       "$session": {
         // Must be UUID and have all children specified.
         ".validate": "newData.hasChildren(['state'])
-        	&& $session.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
+          && $session.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
         "lesson": {
           // Ref. validate lesson exists
           ".validate": "newData.isString() && root.child('lessons').hasChild(newData.val())"
@@ -38,7 +38,7 @@
         "question": {
           // Ref. Validate question exists in lesson
           ".validate": "newData.isString()
-          	&& root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').hasChild(newData.val())"
+            && root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').hasChild(newData.val())"
         },
         "state": {
           ".validate": "newData.isNumber() && newData.val() >= 0" // 0) question-active, 1) question-inactive 2) waiting to join
@@ -51,14 +51,14 @@
             ".validate": "root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').hasChild($question)",
             "$user": { // This should really be UID but we'll do this because I don't want to authenticate.
               // Enforce answer restrictions according to question type. (MC vs Bool vs Free)
-							".validate": "$user.length < 32 &&
-              	root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 0
+              ".validate": "$user.length < 32 &&
+                root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 0
                 ? newData.isString() && root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('answers').hasChild(newData.val())
-              	: root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 1
-              		? newData.isNumber() && ( newData.val() == 0 || newData.val() == 1 )
-              		: root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 2
-              			? newData.isString() && newData.val().length < 128
-              			: false"
+                : root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 1
+                  ? newData.isNumber() && ( newData.val() == 0 || newData.val() == 1 )
+                  : root.child('lessons').child(root.child('sessions').child($session).child('lesson').val()).child('questions').child($question).child('type').val() == 2
+                    ? newData.isString() && newData.val().length < 128
+                    : false"
               // That was horrible.
             }
           }
@@ -72,23 +72,23 @@
       "$lesson": {
         // Lesson must be UUID
         ".validate": "newData.hasChild('name')
-        	&& $lesson.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
+          && $lesson.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
         "name": {
           ".validate": "newData.isString() && newData.val().length < 128"
         },
         "questions": {
           "$question": {
             // Question must be UUID and have question and type
-        		".validate": "newData.hasChildren(['question','type', 'order'])
-            	&& (  (newData.child('type').val() == 0 && (!newData.hasChild('answers') || newData.hasChild('correct')))
+            ".validate": "newData.hasChildren(['question','type', 'order'])
+              && (  (newData.child('type').val() == 0 && (!newData.hasChild('answers') || newData.hasChild('correct')))
                  || (newData.child('type').val() == 1 && newData.hasChild('correct'))
                  || (newData.child('type').val() == 2) )
-            	&& $question.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
+              && $question.matches(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)",
             "question": {
               ".validate": "newData.isString() && newData.val().length < 128"
             },
             "type": {
-          		".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() < 3" // 0) MC, 1) Bool, 2) Free
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() < 3" // 0) MC, 1) Bool, 2) Free
             },
             "correct": {
               ".validate": "(newData.parent().child('type').val() == 0 && newData.parent().child('answers').hasChild(newData.val()))
